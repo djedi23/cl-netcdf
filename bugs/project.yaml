@@ -1,0 +1,10 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: cl-netcdf
+version: "0.5"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: cl-netcdf
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: ffi
+releases: []
+
