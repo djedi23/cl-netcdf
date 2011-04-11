@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Faire un premier netcdf
+desc: Faire un premier exemple pour valider le CFFI
+type: :task
+component: ffi
+release: 
+reporter: djedi <djedi@bourdon>
+status: :unstarted
+disposition: 
+creation_time: 2011-04-11 19:31:12.290652 Z
+references: []
+
+id: 0dee5c845959c2584369440805a56f8ddb409287
+log_events: 
+- - 2011-04-11 19:31:13.850563 Z
+  - djedi <djedi@bourdon>
+  - created
+  - ""
