@@ -27,3 +27,38 @@
       
       (netcdf::close (cffi:mem-ref ncid :int))
       )))
+
+
+(defun nctest1 ()
+  (declare (optimize (debug 3)))
+  (let ((xd 17)
+	(yd 7)
+	(cdf nil))
+    (cffi:with-foreign-objects ((ncid :int)
+				(x-dimid :int)
+				(y-dimid :int)
+				(dimsid :int 2)
+				(varid :int)
+				(data :int (* xd yd))
+				)
+      (netcdf::create "/tmp/x.cdf" netcdf::+clobber+ ncid)
+      (setq cdf (make-instance 'netcdf::netcdf :id (cffi:mem-ref ncid :int)))
+
+      (netcdf::def-dim (netcdf::id cdf) "x" (cffi:make-pointer xd) x-dimid)
+      (netcdf::put-dimension cdf "x" (cffi:mem-ref x-dimid :int))
+      (netcdf::def-dim (netcdf::id cdf) "yy" (cffi:make-pointer yd) y-dimid)
+      (netcdf::put-dimension cdf "yy" (cffi:mem-ref y-dimid :int))
+
+      (setf (cffi:mem-aref dimsid :int 0) (netcdf::get-dimension cdf "x"))
+      (setf (cffi:mem-aref dimsid :int 1) (cffi:mem-ref y-dimid :int))
+      (netcdf::def-var (netcdf::id cdf) "data" netcdf::+int+ 2 dimsid varid)
+      (netcdf::enddef (netcdf::id cdf))
+
+
+      (dotimes (i (* xd yd))
+	(setf (cffi:mem-aref data :int i) i))
+      (netcdf::put-var-int (netcdf::id cdf) (cffi:mem-ref varid :int)
+			      data)
+      
+      (netcdf::close (netcdf::id cdf))
+      )))
