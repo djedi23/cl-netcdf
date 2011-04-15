@@ -5,7 +5,7 @@
 ;;; the SWIG interface file instead.
 
  (defpackage :netcdf
-	(:use :cffi :cl))
+	(:use :cffi))
  (in-package :netcdf)
 
  (define-foreign-library libnetcdf
@@ -52,12 +52,17 @@
         (cl:let ((fix (cl:case flag
                         ((constant enumvalue) "+")
                         (variable "*")
-                        (cl:t ""))))
-          (cl:intern
+                        (cl:t "")))
+		 (name-list (cl:concatenate 'cl:list name)))
+  	  (cl:when (cl:and (cl:char-equal #\N (cl:first name-list))
+		     (cl:char-equal #\C (cl:second name-list))
+		     (cl:char-equal #\_ (cl:third name-list)))
+	    (cl:setq name-list (cl:cdddr name-list)))
+        (cl:intern
            (cl:concatenate
             'cl:string
             fix
-            (cl:nreverse (helper (cl:concatenate 'cl:list name) cl:nil cl:nil))
+            (cl:nreverse (helper name-list cl:nil cl:nil))
             fix)
            package))))))
 
@@ -2307,7 +2312,7 @@
   (cdf_routine_name :string)
   (err :int)
   (fmt :string)
-  &rest)
+  cl:&rest)
 
 (cffi:defcfun ("nctypelen" #.(swig-lispify "nctypelen" 'function)) :int
   (datatype :int))
