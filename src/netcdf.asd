@@ -10,4 +10,5 @@
   :depends-on (:cffi)
   :components (
 	       (:file "netcdf")
+	       (:file "clos" :depends-on ("netcdf"))
 	       ))
