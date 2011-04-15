@@ -17,3 +17,14 @@
 	valeur
 	(cl:error "%a non trouve dans les dimmensions" name)
 	)))
+
+(cl:defun put-variable (netcdf name id)
+  (cl:setf (cl:gethash name (cl:slot-value netcdf 'variables)) id))
+
+(cl:defun get-variable (netcdf name)
+  (cl:multiple-value-bind (valeur trouve)
+      (cl:gethash name (cl:slot-value netcdf 'variables))
+    (cl:if trouve
+	valeur
+	(cl:error "%a non trouve dans les variables" name)
+	)))

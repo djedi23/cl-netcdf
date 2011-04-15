@@ -52,12 +52,13 @@
       (setf (cffi:mem-aref dimsid :int 0) (netcdf::get-dimension cdf "x"))
       (setf (cffi:mem-aref dimsid :int 1) (netcdf::get-dimension cdf "yy"))
       (netcdf::def-var (netcdf::id cdf) "data" netcdf::+int+ 2 dimsid varid)
+      (netcdf::put-variable cdf "data" (cffi:mem-ref varid :int))
       (netcdf::enddef (netcdf::id cdf))
 
 
       (dotimes (i (* xd yd))
 	(setf (cffi:mem-aref data :int i) i))
-      (netcdf::put-var-int (netcdf::id cdf) (cffi:mem-ref varid :int)
+      (netcdf::put-var-int (netcdf::id cdf) (netcdf::get-variable cdf "data")
 			      data)
       
       (netcdf::close (netcdf::id cdf))
