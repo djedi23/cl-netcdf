@@ -2,8 +2,8 @@
 ;; http://localhost/doc/netcdf-doc/netcdf-tutorial.html#simple_005fxy_005fwr_002ec
 
 (defun nctest ()
-  (let ((xd 1700)
-	(yd 700))
+  (let ((xd 17)
+	(yd 7))
     (cffi:with-foreign-objects ((ncid :int)
 				(x-dimid :int)
 				(y-dimid :int)
@@ -33,7 +33,7 @@
   (declare (optimize (debug 3)))
   (let ((xd 17)
 	(yd 7)
-	(cdf nil))
+	(cdf 0))
     (cffi:with-foreign-objects ((ncid :int)
 				(x-dimid :int)
 				(y-dimid :int)
@@ -50,7 +50,7 @@
       (netcdf::put-dimension cdf "yy" (cffi:mem-ref y-dimid :int))
 
       (setf (cffi:mem-aref dimsid :int 0) (netcdf::get-dimension cdf "x"))
-      (setf (cffi:mem-aref dimsid :int 1) (cffi:mem-ref y-dimid :int))
+      (setf (cffi:mem-aref dimsid :int 1) (netcdf::get-dimension cdf "yy"))
       (netcdf::def-var (netcdf::id cdf) "data" netcdf::+int+ 2 dimsid varid)
       (netcdf::enddef (netcdf::id cdf))
 
