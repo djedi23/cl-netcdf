@@ -1,12 +1,14 @@
 %module netcdf
 
 %feature("intern_function","1");
+%feature("export");
 
 
 %insert("lisphead") %{
- (defpackage :netcdf
+ (defpackage :netcdf-cffi
+        (:nicknames :nc-c)
 	(:use :cffi))
- (in-package :netcdf)
+ (in-package :netcdf-cffi)
 
  (define-foreign-library libnetcdf
     (:unix "libnetcdf.so")

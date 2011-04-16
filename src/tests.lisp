@@ -11,21 +11,21 @@
 				(varid :int)
 				(data :int (* xd yd))
 				)
-      (netcdf::create "/tmp/x.cdf" netcdf::+clobber+ ncid)
-      (netcdf::def-dim (cffi:mem-ref ncid :int) "x" (cffi:make-pointer xd) x-dimid)
-      (netcdf::def-dim (cffi:mem-ref ncid :int) "yy" (cffi:make-pointer yd) y-dimid)
+      (nc-c:create "/tmp/x.cdf" nc-c:+clobber+ ncid)
+      (nc-c:def-dim (cffi:mem-ref ncid :int) "x" (cffi:make-pointer xd) x-dimid)
+      (nc-c:def-dim (cffi:mem-ref ncid :int) "yy" (cffi:make-pointer yd) y-dimid)
       (setf (cffi:mem-aref dimsid :int 0) (cffi:mem-ref x-dimid :int))
       (setf (cffi:mem-aref dimsid :int 1) (cffi:mem-ref y-dimid :int))
-      (netcdf::def-var (cffi:mem-ref ncid :int) "data" netcdf::+int+ 2 dimsid varid)
-      (netcdf::enddef (cffi:mem-ref ncid :int))
+      (nc-c:def-var (cffi:mem-ref ncid :int) "data" nc-c:+int+ 2 dimsid varid)
+      (nc-c:enddef (cffi:mem-ref ncid :int))
 
 
       (dotimes (i (* xd yd))
 	(setf (cffi:mem-aref data :int i) i))
-      (netcdf::put-var-int (cffi:mem-ref ncid :int) (cffi:mem-ref varid :int)
+      (nc-c:put-var-int (cffi:mem-ref ncid :int) (cffi:mem-ref varid :int)
 			      data)
       
-      (netcdf::close (cffi:mem-ref ncid :int))
+      (nc-c:close (cffi:mem-ref ncid :int))
       )))
 
 
@@ -41,25 +41,25 @@
 				(varid :int)
 				(data :int (* xd yd))
 				)
-      (netcdf::create "/tmp/x.cdf" netcdf::+clobber+ ncid)
+      (nc-c:create "/tmp/x.cdf" nc-c:+clobber+ ncid)
       (setq cdf (make-instance 'netcdf::netcdf :id (cffi:mem-ref ncid :int)))
 
-      (netcdf::def-dim (netcdf::id cdf) "x" (cffi:make-pointer xd) x-dimid)
+      (nc-c:def-dim (netcdf::id cdf) "x" (cffi:make-pointer xd) x-dimid)
       (netcdf::put-dimension cdf "x" (cffi:mem-ref x-dimid :int))
-      (netcdf::def-dim (netcdf::id cdf) "yy" (cffi:make-pointer yd) y-dimid)
+      (nc-c:def-dim (netcdf::id cdf) "yy" (cffi:make-pointer yd) y-dimid)
       (netcdf::put-dimension cdf "yy" (cffi:mem-ref y-dimid :int))
 
       (setf (cffi:mem-aref dimsid :int 0) (netcdf::get-dimension cdf "x"))
       (setf (cffi:mem-aref dimsid :int 1) (netcdf::get-dimension cdf "yy"))
-      (netcdf::def-var (netcdf::id cdf) "data" netcdf::+int+ 2 dimsid varid)
+      (nc-c:def-var (netcdf::id cdf) "data" nc-c:+int+ 2 dimsid varid)
       (netcdf::put-variable cdf "data" (cffi:mem-ref varid :int))
-      (netcdf::enddef (netcdf::id cdf))
+      (nc-c:enddef (netcdf::id cdf))
 
 
       (dotimes (i (* xd yd))
 	(setf (cffi:mem-aref data :int i) i))
-      (netcdf::put-var-int (netcdf::id cdf) (netcdf::get-variable cdf "data")
+      (nc-c:put-var-int (netcdf::id cdf) (netcdf::get-variable cdf "data")
 			      data)
       
-      (netcdf::close (netcdf::id cdf))
+      (nc-c:close (netcdf::id cdf))
       )))

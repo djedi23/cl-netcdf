@@ -4,17 +4,16 @@
 ;;; Do not make changes to this file unless you know what you are doing--modify
 ;;; the SWIG interface file instead.
 
- (defpackage :netcdf
+ (defpackage :netcdf-cffi
+        (:nicknames :nc-c)
 	(:use :cffi))
- (in-package :netcdf)
+ (in-package :netcdf-cffi)
 
  (define-foreign-library libnetcdf
     (:unix "libnetcdf.so")
     (t (:default "libnetcdf")))
 
  (use-foreign-library libnetcdf)
-
-
 
 ;;;SWIG wrapper code starts here
 
@@ -69,327 +68,650 @@
 ;;;SWIG wrapper code ends here
 
 
+
+
 (cl:defconstant #.(swig-lispify "MPI_COMM_WORLD" 'constant) 0)
+
+(cl:export '#.(swig-lispify "MPI_COMM_WORLD" 'constant))
 
 (cl:defconstant #.(swig-lispify "MPI_INFO_NULL" 'constant) 0)
 
+(cl:export '#.(swig-lispify "MPI_INFO_NULL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_NAT" 'constant) 0)
+
+(cl:export '#.(swig-lispify "NC_NAT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_BYTE" 'constant) 1)
 
+(cl:export '#.(swig-lispify "NC_BYTE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_CHAR" 'constant) 2)
+
+(cl:export '#.(swig-lispify "NC_CHAR" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_SHORT" 'constant) 3)
 
+(cl:export '#.(swig-lispify "NC_SHORT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_INT" 'constant) 4)
+
+(cl:export '#.(swig-lispify "NC_INT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_LONG" 'constant) 4)
 
+(cl:export '#.(swig-lispify "NC_LONG" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_FLOAT" 'constant) 5)
+
+(cl:export '#.(swig-lispify "NC_FLOAT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_DOUBLE" 'constant) 6)
 
+(cl:export '#.(swig-lispify "NC_DOUBLE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_UBYTE" 'constant) 7)
+
+(cl:export '#.(swig-lispify "NC_UBYTE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_USHORT" 'constant) 8)
 
+(cl:export '#.(swig-lispify "NC_USHORT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_UINT" 'constant) 9)
+
+(cl:export '#.(swig-lispify "NC_UINT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_INT64" 'constant) 10)
 
+(cl:export '#.(swig-lispify "NC_INT64" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_UINT64" 'constant) 11)
+
+(cl:export '#.(swig-lispify "NC_UINT64" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_STRING" 'constant) 12)
 
+(cl:export '#.(swig-lispify "NC_STRING" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_VLEN" 'constant) 13)
+
+(cl:export '#.(swig-lispify "NC_VLEN" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_OPAQUE" 'constant) 14)
 
+(cl:export '#.(swig-lispify "NC_OPAQUE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENUM" 'constant) 15)
+
+(cl:export '#.(swig-lispify "NC_ENUM" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_COMPOUND" 'constant) 16)
 
+(cl:export '#.(swig-lispify "NC_COMPOUND" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_FILL_INT" 'constant) -2147483647)
+
+(cl:export '#.(swig-lispify "NC_FILL_INT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_FILL_FLOAT" 'constant) 9.9692099683868690d+36)
 
+(cl:export '#.(swig-lispify "NC_FILL_FLOAT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_FILL_DOUBLE" 'constant) 9.9692099683868690d+36)
+
+(cl:export '#.(swig-lispify "NC_FILL_DOUBLE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_FILL_UBYTE" 'constant) 255)
 
+(cl:export '#.(swig-lispify "NC_FILL_UBYTE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_FILL_USHORT" 'constant) 65535)
 
+(cl:export '#.(swig-lispify "NC_FILL_USHORT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_FILL_UINT" 'constant) 4294967295)
+
+(cl:export '#.(swig-lispify "NC_FILL_UINT" 'constant))
+
 
 
 (cl:defconstant #.(swig-lispify "NC_MAX_BYTE" 'constant) 127)
 
+(cl:export '#.(swig-lispify "NC_MAX_BYTE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MIN_BYTE" 'constant) (cl:- 127 1))
+
+(cl:export '#.(swig-lispify "NC_MIN_BYTE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MAX_CHAR" 'constant) 255)
 
+(cl:export '#.(swig-lispify "NC_MAX_CHAR" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_SHORT" 'constant) 32767)
+
+(cl:export '#.(swig-lispify "NC_MAX_SHORT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MIN_SHORT" 'constant) (cl:- 32767 1))
 
+(cl:export '#.(swig-lispify "NC_MIN_SHORT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_INT" 'constant) 2147483647)
+
+(cl:export '#.(swig-lispify "NC_MAX_INT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MIN_INT" 'constant) (cl:- 2147483647 1))
 
+(cl:export '#.(swig-lispify "NC_MIN_INT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_FLOAT" 'constant) 3.402823466d+38)
+
+(cl:export '#.(swig-lispify "NC_MAX_FLOAT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MIN_FLOAT" 'constant) -3.402823466d+38)
 
+(cl:export '#.(swig-lispify "NC_MIN_FLOAT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_DOUBLE" 'constant) 1.7976931348623157d+308)
+
+(cl:export '#.(swig-lispify "NC_MAX_DOUBLE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MIN_DOUBLE" 'constant) -1.7976931348623157d+308)
 
+(cl:export '#.(swig-lispify "NC_MIN_DOUBLE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_UBYTE" 'constant) 255)
+
+(cl:export '#.(swig-lispify "NC_MAX_UBYTE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MAX_USHORT" 'constant) 65535)
 
+(cl:export '#.(swig-lispify "NC_MAX_USHORT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_UINT" 'constant) 4294967295)
+
+(cl:export '#.(swig-lispify "NC_MAX_UINT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MAX_INT64" 'constant) 9223372036854775807)
 
+(cl:export '#.(swig-lispify "NC_MAX_INT64" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MIN_INT64" 'constant) (cl:- 9223372036854775807 1))
+
+(cl:export '#.(swig-lispify "NC_MIN_INT64" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MAX_UINT64" 'constant) 18446744073709551615)
 
+(cl:export '#.(swig-lispify "NC_MAX_UINT64" 'constant))
+
 (cl:defconstant #.(swig-lispify "X_INT64_MAX" 'constant) 9223372036854775807)
+
+(cl:export '#.(swig-lispify "X_INT64_MAX" 'constant))
 
 (cl:defconstant #.(swig-lispify "X_INT64_MIN" 'constant) (cl:- 9223372036854775807 1))
 
+(cl:export '#.(swig-lispify "X_INT64_MIN" 'constant))
+
 (cl:defconstant #.(swig-lispify "X_UINT64_MAX" 'constant) 18446744073709551615)
+
+(cl:export '#.(swig-lispify "X_UINT64_MAX" 'constant))
+
 
 
 (cl:defconstant #.(swig-lispify "NC_FILL" 'constant) 0)
 
+(cl:export '#.(swig-lispify "NC_FILL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_NOFILL" 'constant) #x100)
+
+(cl:export '#.(swig-lispify "NC_NOFILL" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_NOWRITE" 'constant) 0)
 
+(cl:export '#.(swig-lispify "NC_NOWRITE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_WRITE" 'constant) #x0001)
+
+(cl:export '#.(swig-lispify "NC_WRITE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_CLOBBER" 'constant) 0)
 
+(cl:export '#.(swig-lispify "NC_CLOBBER" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_NOCLOBBER" 'constant) #x0004)
+
+(cl:export '#.(swig-lispify "NC_NOCLOBBER" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_64BIT_OFFSET" 'constant) #x0200)
 
+(cl:export '#.(swig-lispify "NC_64BIT_OFFSET" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_NETCDF4" 'constant) #x1000)
+
+(cl:export '#.(swig-lispify "NC_NETCDF4" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_CLASSIC_MODEL" 'constant) #x0100)
 
+(cl:export '#.(swig-lispify "NC_CLASSIC_MODEL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_SHARE" 'constant) #x0800)
+
+(cl:export '#.(swig-lispify "NC_SHARE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MPIIO" 'constant) #x2000)
 
+(cl:export '#.(swig-lispify "NC_MPIIO" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MPIPOSIX" 'constant) #x4000)
+
+(cl:export '#.(swig-lispify "NC_MPIPOSIX" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_PNETCDF" 'constant) #x8000)
 
+(cl:export '#.(swig-lispify "NC_PNETCDF" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_LOCK" 'constant) #x0400)
+
+(cl:export '#.(swig-lispify "NC_LOCK" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_FORMAT_CLASSIC" 'constant) 1)
 
+(cl:export '#.(swig-lispify "NC_FORMAT_CLASSIC" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_FORMAT_64BIT" 'constant) 2)
+
+(cl:export '#.(swig-lispify "NC_FORMAT_64BIT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_FORMAT_NETCDF4" 'constant) 3)
 
+(cl:export '#.(swig-lispify "NC_FORMAT_NETCDF4" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_FORMAT_NETCDF4_CLASSIC" 'constant) 4)
+
+(cl:export '#.(swig-lispify "NC_FORMAT_NETCDF4_CLASSIC" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_SIZEHINT_DEFAULT" 'constant) 0)
 
+(cl:export '#.(swig-lispify "NC_SIZEHINT_DEFAULT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_UNLIMITED" 'constant) 0)
+
+(cl:export '#.(swig-lispify "NC_UNLIMITED" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_GLOBAL" 'constant) -1)
 
+(cl:export '#.(swig-lispify "NC_GLOBAL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_DIMS" 'constant) 1024)
+
+(cl:export '#.(swig-lispify "NC_MAX_DIMS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MAX_ATTRS" 'constant) 8192)
 
+(cl:export '#.(swig-lispify "NC_MAX_ATTRS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_VARS" 'constant) 8192)
+
+(cl:export '#.(swig-lispify "NC_MAX_VARS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_MAX_NAME" 'constant) 256)
 
+(cl:export '#.(swig-lispify "NC_MAX_NAME" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_MAX_VAR_DIMS" 'constant) 1024)
+
+(cl:export '#.(swig-lispify "NC_MAX_VAR_DIMS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ENDIAN_NATIVE" 'constant) 0)
 
+(cl:export '#.(swig-lispify "NC_ENDIAN_NATIVE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENDIAN_LITTLE" 'constant) 1)
+
+(cl:export '#.(swig-lispify "NC_ENDIAN_LITTLE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ENDIAN_BIG" 'constant) 2)
 
+(cl:export '#.(swig-lispify "NC_ENDIAN_BIG" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_CHUNKED" 'constant) 0)
+
+(cl:export '#.(swig-lispify "NC_CHUNKED" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_CONTIGUOUS" 'constant) 1)
 
+(cl:export '#.(swig-lispify "NC_CONTIGUOUS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_NOCHECKSUM" 'constant) 0)
+
+(cl:export '#.(swig-lispify "NC_NOCHECKSUM" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_FLETCHER32" 'constant) 1)
 
+(cl:export '#.(swig-lispify "NC_FLETCHER32" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_NOSHUFFLE" 'constant) 0)
+
+(cl:export '#.(swig-lispify "NC_NOSHUFFLE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_SHUFFLE" 'constant) 1)
 
+(cl:export '#.(swig-lispify "NC_SHUFFLE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_NOERR" 'constant) 0)
+
+(cl:export '#.(swig-lispify "NC_NOERR" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC2_ERR" 'constant) -1)
 
+(cl:export '#.(swig-lispify "NC2_ERR" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EBADID" 'constant) -33)
+
+(cl:export '#.(swig-lispify "NC_EBADID" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ENFILE" 'constant) -34)
 
+(cl:export '#.(swig-lispify "NC_ENFILE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EEXIST" 'constant) -35)
+
+(cl:export '#.(swig-lispify "NC_EEXIST" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EINVAL" 'constant) -36)
 
+(cl:export '#.(swig-lispify "NC_EINVAL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EPERM" 'constant) -37)
+
+(cl:export '#.(swig-lispify "NC_EPERM" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ENOTINDEFINE" 'constant) -38)
 
+(cl:export '#.(swig-lispify "NC_ENOTINDEFINE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EINDEFINE" 'constant) -39)
+
+(cl:export '#.(swig-lispify "NC_EINDEFINE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EINVALCOORDS" 'constant) -40)
 
+(cl:export '#.(swig-lispify "NC_EINVALCOORDS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EMAXDIMS" 'constant) -41)
+
+(cl:export '#.(swig-lispify "NC_EMAXDIMS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ENAMEINUSE" 'constant) -42)
 
+(cl:export '#.(swig-lispify "NC_ENAMEINUSE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOTATT" 'constant) -43)
+
+(cl:export '#.(swig-lispify "NC_ENOTATT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EMAXATTS" 'constant) -44)
 
+(cl:export '#.(swig-lispify "NC_EMAXATTS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EBADTYPE" 'constant) -45)
+
+(cl:export '#.(swig-lispify "NC_EBADTYPE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EBADDIM" 'constant) -46)
 
+(cl:export '#.(swig-lispify "NC_EBADDIM" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EUNLIMPOS" 'constant) -47)
+
+(cl:export '#.(swig-lispify "NC_EUNLIMPOS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EMAXVARS" 'constant) -48)
 
+(cl:export '#.(swig-lispify "NC_EMAXVARS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOTVAR" 'constant) -49)
+
+(cl:export '#.(swig-lispify "NC_ENOTVAR" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EGLOBAL" 'constant) -50)
 
+(cl:export '#.(swig-lispify "NC_EGLOBAL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOTNC" 'constant) -51)
+
+(cl:export '#.(swig-lispify "NC_ENOTNC" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ESTS" 'constant) -52)
 
+(cl:export '#.(swig-lispify "NC_ESTS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EMAXNAME" 'constant) -53)
+
+(cl:export '#.(swig-lispify "NC_EMAXNAME" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EUNLIMIT" 'constant) -54)
 
+(cl:export '#.(swig-lispify "NC_EUNLIMIT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENORECVARS" 'constant) -55)
+
+(cl:export '#.(swig-lispify "NC_ENORECVARS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ECHAR" 'constant) -56)
 
+(cl:export '#.(swig-lispify "NC_ECHAR" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EEDGE" 'constant) -57)
+
+(cl:export '#.(swig-lispify "NC_EEDGE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ESTRIDE" 'constant) -58)
 
+(cl:export '#.(swig-lispify "NC_ESTRIDE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EBADNAME" 'constant) -59)
+
+(cl:export '#.(swig-lispify "NC_EBADNAME" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ERANGE" 'constant) -60)
 
+(cl:export '#.(swig-lispify "NC_ERANGE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOMEM" 'constant) -61)
+
+(cl:export '#.(swig-lispify "NC_ENOMEM" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EVARSIZE" 'constant) -62)
 
+(cl:export '#.(swig-lispify "NC_EVARSIZE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EDIMSIZE" 'constant) -63)
+
+(cl:export '#.(swig-lispify "NC_EDIMSIZE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ETRUNC" 'constant) -64)
 
+(cl:export '#.(swig-lispify "NC_ETRUNC" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EAXISTYPE" 'constant) -65)
+
+(cl:export '#.(swig-lispify "NC_EAXISTYPE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EDAP" 'constant) -66)
 
+(cl:export '#.(swig-lispify "NC_EDAP" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ECURL" 'constant) -67)
+
+(cl:export '#.(swig-lispify "NC_ECURL" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EIO" 'constant) -68)
 
+(cl:export '#.(swig-lispify "NC_EIO" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENODATA" 'constant) -69)
+
+(cl:export '#.(swig-lispify "NC_ENODATA" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EDAPSVC" 'constant) -70)
 
+(cl:export '#.(swig-lispify "NC_EDAPSVC" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EDAS" 'constant) -71)
+
+(cl:export '#.(swig-lispify "NC_EDAS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EDDS" 'constant) -72)
 
+(cl:export '#.(swig-lispify "NC_EDDS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EDATADDS" 'constant) -73)
+
+(cl:export '#.(swig-lispify "NC_EDATADDS" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EDAPURL" 'constant) -74)
 
+(cl:export '#.(swig-lispify "NC_EDAPURL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EDAPCONSTRAINT" 'constant) -75)
+
+(cl:export '#.(swig-lispify "NC_EDAPCONSTRAINT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC4_FIRST_ERROR" 'constant) -100)
 
+(cl:export '#.(swig-lispify "NC4_FIRST_ERROR" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EHDFERR" 'constant) -101)
+
+(cl:export '#.(swig-lispify "NC_EHDFERR" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ECANTREAD" 'constant) -102)
 
+(cl:export '#.(swig-lispify "NC_ECANTREAD" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ECANTWRITE" 'constant) -103)
+
+(cl:export '#.(swig-lispify "NC_ECANTWRITE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ECANTCREATE" 'constant) -104)
 
+(cl:export '#.(swig-lispify "NC_ECANTCREATE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EFILEMETA" 'constant) -105)
+
+(cl:export '#.(swig-lispify "NC_EFILEMETA" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EDIMMETA" 'constant) -106)
 
+(cl:export '#.(swig-lispify "NC_EDIMMETA" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EATTMETA" 'constant) -107)
+
+(cl:export '#.(swig-lispify "NC_EATTMETA" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EVARMETA" 'constant) -108)
 
+(cl:export '#.(swig-lispify "NC_EVARMETA" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOCOMPOUND" 'constant) -109)
+
+(cl:export '#.(swig-lispify "NC_ENOCOMPOUND" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EATTEXISTS" 'constant) -110)
 
+(cl:export '#.(swig-lispify "NC_EATTEXISTS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOTNC4" 'constant) -111)
+
+(cl:export '#.(swig-lispify "NC_ENOTNC4" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ESTRICTNC3" 'constant) -112)
 
+(cl:export '#.(swig-lispify "NC_ESTRICTNC3" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOTNC3" 'constant) -113)
+
+(cl:export '#.(swig-lispify "NC_ENOTNC3" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ENOPAR" 'constant) -114)
 
+(cl:export '#.(swig-lispify "NC_ENOPAR" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EPARINIT" 'constant) -115)
+
+(cl:export '#.(swig-lispify "NC_EPARINIT" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EBADGRPID" 'constant) -116)
 
+(cl:export '#.(swig-lispify "NC_EBADGRPID" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EBADTYPID" 'constant) -117)
+
+(cl:export '#.(swig-lispify "NC_EBADTYPID" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ETYPDEFINED" 'constant) -118)
 
+(cl:export '#.(swig-lispify "NC_ETYPDEFINED" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EBADFIELD" 'constant) -119)
+
+(cl:export '#.(swig-lispify "NC_EBADFIELD" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EBADCLASS" 'constant) -120)
 
+(cl:export '#.(swig-lispify "NC_EBADCLASS" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EMAPTYPE" 'constant) -121)
+
+(cl:export '#.(swig-lispify "NC_EMAPTYPE" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ELATEFILL" 'constant) -122)
 
+(cl:export '#.(swig-lispify "NC_ELATEFILL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ELATEDEF" 'constant) -123)
+
+(cl:export '#.(swig-lispify "NC_ELATEDEF" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EDIMSCALE" 'constant) -124)
 
+(cl:export '#.(swig-lispify "NC_EDIMSCALE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_ENOGRP" 'constant) -125)
+
+(cl:export '#.(swig-lispify "NC_ENOGRP" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ESTORAGE" 'constant) -126)
 
+(cl:export '#.(swig-lispify "NC_ESTORAGE" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_EBADCHUNK" 'constant) -127)
+
+(cl:export '#.(swig-lispify "NC_EBADCHUNK" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_ENOTBUILT" 'constant) -128)
 
+(cl:export '#.(swig-lispify "NC_ENOTBUILT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC4_LAST_ERROR" 'constant) -128)
+
+(cl:export '#.(swig-lispify "NC4_LAST_ERROR" 'constant))
+
 
 
 (cl:defconstant #.(swig-lispify "NC_HAVE_NEW_CHUNKING_API" 'constant) 1)
 
+(cl:export '#.(swig-lispify "NC_HAVE_NEW_CHUNKING_API" 'constant))
+
 (cffi:defcfun ("nc_inq_libvers" #.(swig-lispify "nc_inq_libvers" 'function)) :string)
+
+(cl:export '#.(swig-lispify "nc_inq_libvers" 'function))
 
 (cffi:defcfun ("nc_strerror" #.(swig-lispify "nc_strerror" 'function)) :string
   (ncerr :int))
+
+(cl:export '#.(swig-lispify "nc_strerror" 'function))
 
 (cffi:defcfun ("nc__create" #.(swig-lispify "nc__create" 'function)) :int
   (path :string)
@@ -398,10 +720,14 @@
   (chunksizehintp :pointer)
   (ncidp :pointer))
 
+(cl:export '#.(swig-lispify "nc__create" 'function))
+
 (cffi:defcfun ("nc_create" #.(swig-lispify "nc_create" 'function)) :int
   (path :string)
   (cmode :int)
   (ncidp :pointer))
+
+(cl:export '#.(swig-lispify "nc_create" 'function))
 
 (cffi:defcfun ("nc__open" #.(swig-lispify "nc__open" 'function)) :int
   (path :string)
@@ -409,10 +735,14 @@
   (chunksizehintp :pointer)
   (ncidp :pointer))
 
+(cl:export '#.(swig-lispify "nc__open" 'function))
+
 (cffi:defcfun ("nc_open" #.(swig-lispify "nc_open" 'function)) :int
   (path :string)
   (mode :int)
   (ncidp :pointer))
+
+(cl:export '#.(swig-lispify "nc_open" 'function))
 
 (cffi:defcfun ("nc_create_par" #.(swig-lispify "nc_create_par" 'function)) :int
   (path :string)
@@ -421,6 +751,8 @@
   (info :int)
   (ncidp :pointer))
 
+(cl:export '#.(swig-lispify "nc_create_par" 'function))
+
 (cffi:defcfun ("nc_open_par" #.(swig-lispify "nc_open_par" 'function)) :int
   (path :string)
   (mode :int)
@@ -428,56 +760,82 @@
   (info :int)
   (ncidp :pointer))
 
+(cl:export '#.(swig-lispify "nc_open_par" 'function))
+
 (cl:defconstant #.(swig-lispify "NC_INDEPENDENT" 'constant) 0)
 
+(cl:export '#.(swig-lispify "NC_INDEPENDENT" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_COLLECTIVE" 'constant) 1)
+
+(cl:export '#.(swig-lispify "NC_COLLECTIVE" 'constant))
 
 (cffi:defcfun ("nc_var_par_access" #.(swig-lispify "nc_var_par_access" 'function)) :int
   (ncid :int)
   (varid :int)
   (par_access :int))
 
+(cl:export '#.(swig-lispify "nc_var_par_access" 'function))
+
 (cffi:defcfun ("nc_inq_ncid" #.(swig-lispify "nc_inq_ncid" 'function)) :int
   (ncid :int)
   (name :string)
   (grp_ncid :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_ncid" 'function))
 
 (cffi:defcfun ("nc_inq_grps" #.(swig-lispify "nc_inq_grps" 'function)) :int
   (ncid :int)
   (numgrps :pointer)
   (ncids :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_grps" 'function))
+
 (cffi:defcfun ("nc_inq_grpname" #.(swig-lispify "nc_inq_grpname" 'function)) :int
   (ncid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "nc_inq_grpname" 'function))
 
 (cffi:defcfun ("nc_inq_grpname_full" #.(swig-lispify "nc_inq_grpname_full" 'function)) :int
   (ncid :int)
   (lenp :pointer)
   (full_name :string))
 
+(cl:export '#.(swig-lispify "nc_inq_grpname_full" 'function))
+
 (cffi:defcfun ("nc_inq_grpname_len" #.(swig-lispify "nc_inq_grpname_len" 'function)) :int
   (ncid :int)
   (lenp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_grpname_len" 'function))
+
 (cffi:defcfun ("nc_inq_grp_parent" #.(swig-lispify "nc_inq_grp_parent" 'function)) :int
   (ncid :int)
   (parent_ncid :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_grp_parent" 'function))
 
 (cffi:defcfun ("nc_inq_grp_ncid" #.(swig-lispify "nc_inq_grp_ncid" 'function)) :int
   (ncid :int)
   (grp_name :string)
   (grp_ncid :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_grp_ncid" 'function))
+
 (cffi:defcfun ("nc_inq_grp_full_ncid" #.(swig-lispify "nc_inq_grp_full_ncid" 'function)) :int
   (ncid :int)
   (full_name :string)
   (grp_ncid :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_grp_full_ncid" 'function))
+
 (cffi:defcfun ("nc_inq_varids" #.(swig-lispify "nc_inq_varids" 'function)) :int
   (ncid :int)
   (nvars :pointer)
   (varids :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_varids" 'function))
 
 (cffi:defcfun ("nc_inq_dimids" #.(swig-lispify "nc_inq_dimids" 'function)) :int
   (ncid :int)
@@ -485,10 +843,14 @@
   (dimids :pointer)
   (include_parents :int))
 
+(cl:export '#.(swig-lispify "nc_inq_dimids" 'function))
+
 (cffi:defcfun ("nc_inq_typeids" #.(swig-lispify "nc_inq_typeids" 'function)) :int
   (ncid :int)
   (ntypes :pointer)
   (typeids :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_typeids" 'function))
 
 (cffi:defcfun ("nc_inq_type_equal" #.(swig-lispify "nc_inq_type_equal" 'function)) :int
   (ncid1 :int)
@@ -497,10 +859,14 @@
   (typeid2 :int)
   (equal :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_type_equal" 'function))
+
 (cffi:defcfun ("nc_def_grp" #.(swig-lispify "nc_def_grp" 'function)) :int
   (parent_ncid :int)
   (name :string)
   (new_ncid :pointer))
+
+(cl:export '#.(swig-lispify "nc_def_grp" 'function))
 
 (cffi:defcfun ("nc_def_compound" #.(swig-lispify "nc_def_compound" 'function)) :int
   (ncid :int)
@@ -508,12 +874,16 @@
   (name :string)
   (typeidp :pointer))
 
+(cl:export '#.(swig-lispify "nc_def_compound" 'function))
+
 (cffi:defcfun ("nc_insert_compound" #.(swig-lispify "nc_insert_compound" 'function)) :int
   (ncid :int)
   (xtype :int)
   (name :string)
   (offset :pointer)
   (field_typeid :int))
+
+(cl:export '#.(swig-lispify "nc_insert_compound" 'function))
 
 (cffi:defcfun ("nc_insert_array_compound" #.(swig-lispify "nc_insert_array_compound" 'function)) :int
   (ncid :int)
@@ -524,16 +894,22 @@
   (ndims :int)
   (dim_sizes :pointer))
 
+(cl:export '#.(swig-lispify "nc_insert_array_compound" 'function))
+
 (cffi:defcfun ("nc_inq_type" #.(swig-lispify "nc_inq_type" 'function)) :int
   (ncid :int)
   (xtype :int)
   (name :string)
   (size :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_type" 'function))
+
 (cffi:defcfun ("nc_inq_typeid" #.(swig-lispify "nc_inq_typeid" 'function)) :int
   (ncid :int)
   (name :string)
   (typeidp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_typeid" 'function))
 
 (cffi:defcfun ("nc_inq_compound" #.(swig-lispify "nc_inq_compound" 'function)) :int
   (ncid :int)
@@ -542,20 +918,28 @@
   (sizep :pointer)
   (nfieldsp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_compound" 'function))
+
 (cffi:defcfun ("nc_inq_compound_name" #.(swig-lispify "nc_inq_compound_name" 'function)) :int
   (ncid :int)
   (xtype :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "nc_inq_compound_name" 'function))
 
 (cffi:defcfun ("nc_inq_compound_size" #.(swig-lispify "nc_inq_compound_size" 'function)) :int
   (ncid :int)
   (xtype :int)
   (sizep :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_compound_size" 'function))
+
 (cffi:defcfun ("nc_inq_compound_nfields" #.(swig-lispify "nc_inq_compound_nfields" 'function)) :int
   (ncid :int)
   (xtype :int)
   (nfieldsp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_compound_nfields" 'function))
 
 (cffi:defcfun ("nc_inq_compound_field" #.(swig-lispify "nc_inq_compound_field" 'function)) :int
   (ncid :int)
@@ -567,11 +951,15 @@
   (ndimsp :pointer)
   (dim_sizesp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_compound_field" 'function))
+
 (cffi:defcfun ("nc_inq_compound_fieldname" #.(swig-lispify "nc_inq_compound_fieldname" 'function)) :int
   (ncid :int)
   (xtype :int)
   (fieldid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "nc_inq_compound_fieldname" 'function))
 
 (cffi:defcfun ("nc_inq_compound_fieldindex" #.(swig-lispify "nc_inq_compound_fieldindex" 'function)) :int
   (ncid :int)
@@ -579,11 +967,15 @@
   (name :string)
   (fieldidp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_compound_fieldindex" 'function))
+
 (cffi:defcfun ("nc_inq_compound_fieldoffset" #.(swig-lispify "nc_inq_compound_fieldoffset" 'function)) :int
   (ncid :int)
   (xtype :int)
   (fieldid :int)
   (offsetp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_compound_fieldoffset" 'function))
 
 (cffi:defcfun ("nc_inq_compound_fieldtype" #.(swig-lispify "nc_inq_compound_fieldtype" 'function)) :int
   (ncid :int)
@@ -591,11 +983,15 @@
   (fieldid :int)
   (field_typeidp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_compound_fieldtype" 'function))
+
 (cffi:defcfun ("nc_inq_compound_fieldndims" #.(swig-lispify "nc_inq_compound_fieldndims" 'function)) :int
   (ncid :int)
   (xtype :int)
   (fieldid :int)
   (ndimsp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_compound_fieldndims" 'function))
 
 (cffi:defcfun ("nc_inq_compound_fielddim_sizes" #.(swig-lispify "nc_inq_compound_fielddim_sizes" 'function)) :int
   (ncid :int)
@@ -603,15 +999,25 @@
   (fieldid :int)
   (dim_sizes :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_compound_fielddim_sizes" 'function))
+
 (cffi:defcstruct #.(swig-lispify "nc_vlen_t" 'classname)
 	(#.(swig-lispify "len" 'slotname) :pointer)
 	(#.(swig-lispify "p" 'slotname) :pointer))
+
+(cl:export '#.(swig-lispify "nc_vlen_t" 'classname))
+
+(cl:export '#.(swig-lispify "len" 'slotname))
+
+(cl:export '#.(swig-lispify "p" 'slotname))
 
 (cffi:defcfun ("nc_def_vlen" #.(swig-lispify "nc_def_vlen" 'function)) :int
   (ncid :int)
   (name :string)
   (base_typeid :int)
   (xtypep :pointer))
+
+(cl:export '#.(swig-lispify "nc_def_vlen" 'function))
 
 (cffi:defcfun ("nc_inq_vlen" #.(swig-lispify "nc_inq_vlen" 'function)) :int
   (ncid :int)
@@ -620,12 +1026,18 @@
   (datum_sizep :pointer)
   (base_nc_typep :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_vlen" 'function))
+
 (cffi:defcfun ("nc_free_vlen" #.(swig-lispify "nc_free_vlen" 'function)) :int
   (vl :pointer))
+
+(cl:export '#.(swig-lispify "nc_free_vlen" 'function))
 
 (cffi:defcfun ("nc_free_vlens" #.(swig-lispify "nc_free_vlens" 'function)) :int
   (len :pointer)
   (vlens :pointer))
+
+(cl:export '#.(swig-lispify "nc_free_vlens" 'function))
 
 (cffi:defcfun ("nc_put_vlen_element" #.(swig-lispify "nc_put_vlen_element" 'function)) :int
   (ncid :int)
@@ -634,6 +1046,8 @@
   (len :pointer)
   (data :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vlen_element" 'function))
+
 (cffi:defcfun ("nc_get_vlen_element" #.(swig-lispify "nc_get_vlen_element" 'function)) :int
   (ncid :int)
   (typeid1 :int)
@@ -641,9 +1055,13 @@
   (len :pointer)
   (data :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_vlen_element" 'function))
+
 (cffi:defcfun ("nc_free_string" #.(swig-lispify "nc_free_string" 'function)) :int
   (len :pointer)
   (data :pointer))
+
+(cl:export '#.(swig-lispify "nc_free_string" 'function))
 
 (cffi:defcfun ("nc_inq_user_type" #.(swig-lispify "nc_inq_user_type" 'function)) :int
   (ncid :int)
@@ -654,6 +1072,8 @@
   (nfieldsp :pointer)
   (classp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_user_type" 'function))
+
 (cffi:defcfun ("nc_put_att" #.(swig-lispify "nc_put_att" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -662,11 +1082,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att" 'function))
+
 (cffi:defcfun ("nc_get_att" #.(swig-lispify "nc_get_att" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att" 'function))
 
 (cffi:defcfun ("nc_def_enum" #.(swig-lispify "nc_def_enum" 'function)) :int
   (ncid :int)
@@ -674,11 +1098,15 @@
   (name :string)
   (typeidp :pointer))
 
+(cl:export '#.(swig-lispify "nc_def_enum" 'function))
+
 (cffi:defcfun ("nc_insert_enum" #.(swig-lispify "nc_insert_enum" 'function)) :int
   (ncid :int)
   (xtype :int)
   (name :string)
   (value :pointer))
+
+(cl:export '#.(swig-lispify "nc_insert_enum" 'function))
 
 (cffi:defcfun ("nc_inq_enum" #.(swig-lispify "nc_inq_enum" 'function)) :int
   (ncid :int)
@@ -688,6 +1116,8 @@
   (base_sizep :pointer)
   (num_membersp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_enum" 'function))
+
 (cffi:defcfun ("nc_inq_enum_member" #.(swig-lispify "nc_inq_enum_member" 'function)) :int
   (ncid :int)
   (xtype :int)
@@ -695,11 +1125,15 @@
   (name :string)
   (value :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_enum_member" 'function))
+
 (cffi:defcfun ("nc_inq_enum_ident" #.(swig-lispify "nc_inq_enum_ident" 'function)) :int
   (ncid :int)
   (xtype :int)
   (value :long-long)
   (identifier :string))
+
+(cl:export '#.(swig-lispify "nc_inq_enum_ident" 'function))
 
 (cffi:defcfun ("nc_def_opaque" #.(swig-lispify "nc_def_opaque" 'function)) :int
   (ncid :int)
@@ -707,21 +1141,29 @@
   (name :string)
   (xtypep :pointer))
 
+(cl:export '#.(swig-lispify "nc_def_opaque" 'function))
+
 (cffi:defcfun ("nc_inq_opaque" #.(swig-lispify "nc_inq_opaque" 'function)) :int
   (ncid :int)
   (xtype :int)
   (name :string)
   (sizep :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_opaque" 'function))
+
 (cffi:defcfun ("nc_put_var" #.(swig-lispify "nc_put_var" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var" 'function))
+
 (cffi:defcfun ("nc_get_var" #.(swig-lispify "nc_get_var" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var" 'function))
 
 (cffi:defcfun ("nc_put_var1" #.(swig-lispify "nc_put_var1" 'function)) :int
   (ncid :int)
@@ -729,11 +1171,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1" 'function))
+
 (cffi:defcfun ("nc_get_var1" #.(swig-lispify "nc_get_var1" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1" 'function))
 
 (cffi:defcfun ("nc_put_vara" #.(swig-lispify "nc_put_vara" 'function)) :int
   (ncid :int)
@@ -742,12 +1188,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara" 'function))
+
 (cffi:defcfun ("nc_get_vara" #.(swig-lispify "nc_get_vara" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara" 'function))
 
 (cffi:defcfun ("nc_put_vars" #.(swig-lispify "nc_put_vars" 'function)) :int
   (ncid :int)
@@ -757,6 +1207,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars" 'function))
+
 (cffi:defcfun ("nc_get_vars" #.(swig-lispify "nc_get_vars" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -764,6 +1216,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars" 'function))
 
 (cffi:defcfun ("nc_put_varm" #.(swig-lispify "nc_put_varm" 'function)) :int
   (ncid :int)
@@ -774,6 +1228,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm" 'function))
+
 (cffi:defcfun ("nc_get_varm" #.(swig-lispify "nc_get_varm" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -783,12 +1239,16 @@
   (imapp :pointer)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_varm" 'function))
+
 (cffi:defcfun ("nc_def_var_deflate" #.(swig-lispify "nc_def_var_deflate" 'function)) :int
   (ncid :int)
   (varid :int)
   (shuffle :int)
   (deflate :int)
   (deflate_level :int))
+
+(cl:export '#.(swig-lispify "nc_def_var_deflate" 'function))
 
 (cffi:defcfun ("nc_inq_var_deflate" #.(swig-lispify "nc_inq_var_deflate" 'function)) :int
   (ncid :int)
@@ -797,21 +1257,29 @@
   (deflatep :pointer)
   (deflate_levelp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_var_deflate" 'function))
+
 (cffi:defcfun ("nc_inq_var_szip" #.(swig-lispify "nc_inq_var_szip" 'function)) :int
   (ncid :int)
   (varid :int)
   (options_maskp :pointer)
   (pixels_per_blockp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_var_szip" 'function))
+
 (cffi:defcfun ("nc_def_var_fletcher32" #.(swig-lispify "nc_def_var_fletcher32" 'function)) :int
   (ncid :int)
   (varid :int)
   (fletcher32 :int))
 
+(cl:export '#.(swig-lispify "nc_def_var_fletcher32" 'function))
+
 (cffi:defcfun ("nc_inq_var_fletcher32" #.(swig-lispify "nc_inq_var_fletcher32" 'function)) :int
   (ncid :int)
   (varid :int)
   (fletcher32p :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_var_fletcher32" 'function))
 
 (cffi:defcfun ("nc_def_var_chunking" #.(swig-lispify "nc_def_var_chunking" 'function)) :int
   (ncid :int)
@@ -819,11 +1287,15 @@
   (storage :int)
   (chunksizesp :pointer))
 
+(cl:export '#.(swig-lispify "nc_def_var_chunking" 'function))
+
 (cffi:defcfun ("nc_inq_var_chunking" #.(swig-lispify "nc_inq_var_chunking" 'function)) :int
   (ncid :int)
   (varid :int)
   (storagep :pointer)
   (chunksizesp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_var_chunking" 'function))
 
 (cffi:defcfun ("nc_def_var_fill" #.(swig-lispify "nc_def_var_fill" 'function)) :int
   (ncid :int)
@@ -831,40 +1303,56 @@
   (no_fill :int)
   (fill_value :pointer))
 
+(cl:export '#.(swig-lispify "nc_def_var_fill" 'function))
+
 (cffi:defcfun ("nc_inq_var_fill" #.(swig-lispify "nc_inq_var_fill" 'function)) :int
   (ncid :int)
   (varid :int)
   (no_fill :pointer)
   (fill_value :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_var_fill" 'function))
+
 (cffi:defcfun ("nc_def_var_endian" #.(swig-lispify "nc_def_var_endian" 'function)) :int
   (ncid :int)
   (varid :int)
   (endian :int))
+
+(cl:export '#.(swig-lispify "nc_def_var_endian" 'function))
 
 (cffi:defcfun ("nc_inq_var_endian" #.(swig-lispify "nc_inq_var_endian" 'function)) :int
   (ncid :int)
   (varid :int)
   (endianp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_var_endian" 'function))
+
 (cffi:defcfun ("nc_set_fill" #.(swig-lispify "nc_set_fill" 'function)) :int
   (ncid :int)
   (fillmode :int)
   (old_modep :pointer))
 
+(cl:export '#.(swig-lispify "nc_set_fill" 'function))
+
 (cffi:defcfun ("nc_set_default_format" #.(swig-lispify "nc_set_default_format" 'function)) :int
   (format :int)
   (old_formatp :pointer))
+
+(cl:export '#.(swig-lispify "nc_set_default_format" 'function))
 
 (cffi:defcfun ("nc_set_chunk_cache" #.(swig-lispify "nc_set_chunk_cache" 'function)) :int
   (size :pointer)
   (nelems :pointer)
   (preemption :float))
 
+(cl:export '#.(swig-lispify "nc_set_chunk_cache" 'function))
+
 (cffi:defcfun ("nc_get_chunk_cache" #.(swig-lispify "nc_get_chunk_cache" 'function)) :int
   (sizep :pointer)
   (nelemsp :pointer)
   (preemptionp :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_chunk_cache" 'function))
 
 (cffi:defcfun ("nc_set_var_chunk_cache" #.(swig-lispify "nc_set_var_chunk_cache" 'function)) :int
   (ncid :int)
@@ -873,6 +1361,8 @@
   (nelems :pointer)
   (preemption :float))
 
+(cl:export '#.(swig-lispify "nc_set_var_chunk_cache" 'function))
+
 (cffi:defcfun ("nc_get_var_chunk_cache" #.(swig-lispify "nc_get_var_chunk_cache" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -880,8 +1370,12 @@
   (nelemsp :pointer)
   (preemptionp :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_chunk_cache" 'function))
+
 (cffi:defcfun ("nc_redef" #.(swig-lispify "nc_redef" 'function)) :int
   (ncid :int))
+
+(cl:export '#.(swig-lispify "nc_redef" 'function))
 
 (cffi:defcfun ("nc__enddef" #.(swig-lispify "nc__enddef" 'function)) :int
   (ncid :int)
@@ -890,17 +1384,27 @@
   (v_minfree :pointer)
   (r_align :pointer))
 
+(cl:export '#.(swig-lispify "nc__enddef" 'function))
+
 (cffi:defcfun ("nc_enddef" #.(swig-lispify "nc_enddef" 'function)) :int
   (ncid :int))
+
+(cl:export '#.(swig-lispify "nc_enddef" 'function))
 
 (cffi:defcfun ("nc_sync" #.(swig-lispify "nc_sync" 'function)) :int
   (ncid :int))
 
+(cl:export '#.(swig-lispify "nc_sync" 'function))
+
 (cffi:defcfun ("nc_abort" #.(swig-lispify "nc_abort" 'function)) :int
   (ncid :int))
 
+(cl:export '#.(swig-lispify "nc_abort" 'function))
+
 (cffi:defcfun ("nc_close" #.(swig-lispify "nc_close" 'function)) :int
   (ncid :int))
+
+(cl:export '#.(swig-lispify "nc_close" 'function))
 
 (cffi:defcfun ("nc_inq" #.(swig-lispify "nc_inq" 'function)) :int
   (ncid :int)
@@ -909,30 +1413,44 @@
   (nattsp :pointer)
   (unlimdimidp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq" 'function))
+
 (cffi:defcfun ("nc_inq_ndims" #.(swig-lispify "nc_inq_ndims" 'function)) :int
   (ncid :int)
   (ndimsp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_ndims" 'function))
 
 (cffi:defcfun ("nc_inq_nvars" #.(swig-lispify "nc_inq_nvars" 'function)) :int
   (ncid :int)
   (nvarsp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_nvars" 'function))
+
 (cffi:defcfun ("nc_inq_natts" #.(swig-lispify "nc_inq_natts" 'function)) :int
   (ncid :int)
   (nattsp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_natts" 'function))
+
 (cffi:defcfun ("nc_inq_unlimdim" #.(swig-lispify "nc_inq_unlimdim" 'function)) :int
   (ncid :int)
   (unlimdimidp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_unlimdim" 'function))
 
 (cffi:defcfun ("nc_inq_unlimdims" #.(swig-lispify "nc_inq_unlimdims" 'function)) :int
   (ncid :int)
   (nunlimdimsp :pointer)
   (unlimdimidsp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_unlimdims" 'function))
+
 (cffi:defcfun ("nc_inq_format" #.(swig-lispify "nc_inq_format" 'function)) :int
   (ncid :int)
   (formatp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_format" 'function))
 
 (cffi:defcfun ("nc_def_dim" #.(swig-lispify "nc_def_dim" 'function)) :int
   (ncid :int)
@@ -940,10 +1458,14 @@
   (len :pointer)
   (idp :pointer))
 
+(cl:export '#.(swig-lispify "nc_def_dim" 'function))
+
 (cffi:defcfun ("nc_inq_dimid" #.(swig-lispify "nc_inq_dimid" 'function)) :int
   (ncid :int)
   (name :string)
   (idp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_dimid" 'function))
 
 (cffi:defcfun ("nc_inq_dim" #.(swig-lispify "nc_inq_dim" 'function)) :int
   (ncid :int)
@@ -951,20 +1473,28 @@
   (name :string)
   (lenp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_dim" 'function))
+
 (cffi:defcfun ("nc_inq_dimname" #.(swig-lispify "nc_inq_dimname" 'function)) :int
   (ncid :int)
   (dimid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "nc_inq_dimname" 'function))
 
 (cffi:defcfun ("nc_inq_dimlen" #.(swig-lispify "nc_inq_dimlen" 'function)) :int
   (ncid :int)
   (dimid :int)
   (lenp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_dimlen" 'function))
+
 (cffi:defcfun ("nc_rename_dim" #.(swig-lispify "nc_rename_dim" 'function)) :int
   (ncid :int)
   (dimid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "nc_rename_dim" 'function))
 
 (cffi:defcfun ("nc_inq_att" #.(swig-lispify "nc_inq_att" 'function)) :int
   (ncid :int)
@@ -973,11 +1503,15 @@
   (xtypep :pointer)
   (lenp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_att" 'function))
+
 (cffi:defcfun ("nc_inq_attid" #.(swig-lispify "nc_inq_attid" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (idp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_attid" 'function))
 
 (cffi:defcfun ("nc_inq_atttype" #.(swig-lispify "nc_inq_atttype" 'function)) :int
   (ncid :int)
@@ -985,17 +1519,23 @@
   (name :string)
   (xtypep :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_atttype" 'function))
+
 (cffi:defcfun ("nc_inq_attlen" #.(swig-lispify "nc_inq_attlen" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (lenp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_attlen" 'function))
+
 (cffi:defcfun ("nc_inq_attname" #.(swig-lispify "nc_inq_attname" 'function)) :int
   (ncid :int)
   (varid :int)
   (attnum :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "nc_inq_attname" 'function))
 
 (cffi:defcfun ("nc_copy_att" #.(swig-lispify "nc_copy_att" 'function)) :int
   (ncid_in :int)
@@ -1004,16 +1544,22 @@
   (ncid_out :int)
   (varid_out :int))
 
+(cl:export '#.(swig-lispify "nc_copy_att" 'function))
+
 (cffi:defcfun ("nc_rename_att" #.(swig-lispify "nc_rename_att" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (newname :string))
 
+(cl:export '#.(swig-lispify "nc_rename_att" 'function))
+
 (cffi:defcfun ("nc_del_att" #.(swig-lispify "nc_del_att" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "nc_del_att" 'function))
 
 (cffi:defcfun ("nc_put_att_text" #.(swig-lispify "nc_put_att_text" 'function)) :int
   (ncid :int)
@@ -1022,11 +1568,15 @@
   (len :pointer)
   (op :string))
 
+(cl:export '#.(swig-lispify "nc_put_att_text" 'function))
+
 (cffi:defcfun ("nc_get_att_text" #.(swig-lispify "nc_get_att_text" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :string))
+
+(cl:export '#.(swig-lispify "nc_get_att_text" 'function))
 
 (cffi:defcfun ("nc_put_att_uchar" #.(swig-lispify "nc_put_att_uchar" 'function)) :int
   (ncid :int)
@@ -1036,11 +1586,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_uchar" 'function))
+
 (cffi:defcfun ("nc_get_att_uchar" #.(swig-lispify "nc_get_att_uchar" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_uchar" 'function))
 
 (cffi:defcfun ("nc_put_att_schar" #.(swig-lispify "nc_put_att_schar" 'function)) :int
   (ncid :int)
@@ -1050,11 +1604,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_schar" 'function))
+
 (cffi:defcfun ("nc_get_att_schar" #.(swig-lispify "nc_get_att_schar" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_schar" 'function))
 
 (cffi:defcfun ("nc_put_att_short" #.(swig-lispify "nc_put_att_short" 'function)) :int
   (ncid :int)
@@ -1064,11 +1622,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_short" 'function))
+
 (cffi:defcfun ("nc_get_att_short" #.(swig-lispify "nc_get_att_short" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_short" 'function))
 
 (cffi:defcfun ("nc_put_att_int" #.(swig-lispify "nc_put_att_int" 'function)) :int
   (ncid :int)
@@ -1078,11 +1640,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_int" 'function))
+
 (cffi:defcfun ("nc_get_att_int" #.(swig-lispify "nc_get_att_int" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_int" 'function))
 
 (cffi:defcfun ("nc_put_att_long" #.(swig-lispify "nc_put_att_long" 'function)) :int
   (ncid :int)
@@ -1092,11 +1658,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_long" 'function))
+
 (cffi:defcfun ("nc_get_att_long" #.(swig-lispify "nc_get_att_long" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_long" 'function))
 
 (cffi:defcfun ("nc_put_att_float" #.(swig-lispify "nc_put_att_float" 'function)) :int
   (ncid :int)
@@ -1106,11 +1676,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_float" 'function))
+
 (cffi:defcfun ("nc_get_att_float" #.(swig-lispify "nc_get_att_float" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_float" 'function))
 
 (cffi:defcfun ("nc_put_att_double" #.(swig-lispify "nc_put_att_double" 'function)) :int
   (ncid :int)
@@ -1120,11 +1694,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_double" 'function))
+
 (cffi:defcfun ("nc_get_att_double" #.(swig-lispify "nc_get_att_double" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_double" 'function))
 
 (cffi:defcfun ("nc_put_att_ubyte" #.(swig-lispify "nc_put_att_ubyte" 'function)) :int
   (ncid :int)
@@ -1134,11 +1712,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_ubyte" 'function))
+
 (cffi:defcfun ("nc_get_att_ubyte" #.(swig-lispify "nc_get_att_ubyte" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_ubyte" 'function))
 
 (cffi:defcfun ("nc_put_att_ushort" #.(swig-lispify "nc_put_att_ushort" 'function)) :int
   (ncid :int)
@@ -1148,11 +1730,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_ushort" 'function))
+
 (cffi:defcfun ("nc_get_att_ushort" #.(swig-lispify "nc_get_att_ushort" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_ushort" 'function))
 
 (cffi:defcfun ("nc_put_att_uint" #.(swig-lispify "nc_put_att_uint" 'function)) :int
   (ncid :int)
@@ -1162,11 +1748,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_uint" 'function))
+
 (cffi:defcfun ("nc_get_att_uint" #.(swig-lispify "nc_get_att_uint" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_uint" 'function))
 
 (cffi:defcfun ("nc_put_att_longlong" #.(swig-lispify "nc_put_att_longlong" 'function)) :int
   (ncid :int)
@@ -1176,11 +1766,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_longlong" 'function))
+
 (cffi:defcfun ("nc_get_att_longlong" #.(swig-lispify "nc_get_att_longlong" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_longlong" 'function))
 
 (cffi:defcfun ("nc_put_att_ulonglong" #.(swig-lispify "nc_put_att_ulonglong" 'function)) :int
   (ncid :int)
@@ -1190,11 +1784,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_ulonglong" 'function))
+
 (cffi:defcfun ("nc_get_att_ulonglong" #.(swig-lispify "nc_get_att_ulonglong" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_ulonglong" 'function))
 
 (cffi:defcfun ("nc_put_att_string" #.(swig-lispify "nc_put_att_string" 'function)) :int
   (ncid :int)
@@ -1203,11 +1801,15 @@
   (len :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_att_string" 'function))
+
 (cffi:defcfun ("nc_get_att_string" #.(swig-lispify "nc_get_att_string" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_att_string" 'function))
 
 (cffi:defcfun ("nc_def_var" #.(swig-lispify "nc_def_var" 'function)) :int
   (ncid :int)
@@ -1216,6 +1818,8 @@
   (ndims :int)
   (dimidsp :pointer)
   (varidp :pointer))
+
+(cl:export '#.(swig-lispify "nc_def_var" 'function))
 
 (cffi:defcfun ("nc_inq_var" #.(swig-lispify "nc_inq_var" 'function)) :int
   (ncid :int)
@@ -1226,45 +1830,63 @@
   (dimidsp :pointer)
   (nattsp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_var" 'function))
+
 (cffi:defcfun ("nc_inq_varid" #.(swig-lispify "nc_inq_varid" 'function)) :int
   (ncid :int)
   (name :string)
   (varidp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_varid" 'function))
 
 (cffi:defcfun ("nc_inq_varname" #.(swig-lispify "nc_inq_varname" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string))
 
+(cl:export '#.(swig-lispify "nc_inq_varname" 'function))
+
 (cffi:defcfun ("nc_inq_vartype" #.(swig-lispify "nc_inq_vartype" 'function)) :int
   (ncid :int)
   (varid :int)
   (xtypep :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_vartype" 'function))
 
 (cffi:defcfun ("nc_inq_varndims" #.(swig-lispify "nc_inq_varndims" 'function)) :int
   (ncid :int)
   (varid :int)
   (ndimsp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_varndims" 'function))
+
 (cffi:defcfun ("nc_inq_vardimid" #.(swig-lispify "nc_inq_vardimid" 'function)) :int
   (ncid :int)
   (varid :int)
   (dimidsp :pointer))
+
+(cl:export '#.(swig-lispify "nc_inq_vardimid" 'function))
 
 (cffi:defcfun ("nc_inq_varnatts" #.(swig-lispify "nc_inq_varnatts" 'function)) :int
   (ncid :int)
   (varid :int)
   (nattsp :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_varnatts" 'function))
+
 (cffi:defcfun ("nc_rename_var" #.(swig-lispify "nc_rename_var" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string))
 
+(cl:export '#.(swig-lispify "nc_rename_var" 'function))
+
 (cffi:defcfun ("nc_copy_var" #.(swig-lispify "nc_copy_var" 'function)) :int
   (ncid_in :int)
   (varid :int)
   (ncid_out :int))
+
+(cl:export '#.(swig-lispify "nc_copy_var" 'function))
 
 (cffi:defcfun ("nc_put_var1_text" #.(swig-lispify "nc_put_var1_text" 'function)) :int
   (ncid :int)
@@ -1272,11 +1894,15 @@
   (indexp :pointer)
   (op :string))
 
+(cl:export '#.(swig-lispify "nc_put_var1_text" 'function))
+
 (cffi:defcfun ("nc_get_var1_text" #.(swig-lispify "nc_get_var1_text" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :string))
+
+(cl:export '#.(swig-lispify "nc_get_var1_text" 'function))
 
 (cffi:defcfun ("nc_put_var1_uchar" #.(swig-lispify "nc_put_var1_uchar" 'function)) :int
   (ncid :int)
@@ -1284,11 +1910,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_uchar" 'function))
+
 (cffi:defcfun ("nc_get_var1_uchar" #.(swig-lispify "nc_get_var1_uchar" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_uchar" 'function))
 
 (cffi:defcfun ("nc_put_var1_schar" #.(swig-lispify "nc_put_var1_schar" 'function)) :int
   (ncid :int)
@@ -1296,11 +1926,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_schar" 'function))
+
 (cffi:defcfun ("nc_get_var1_schar" #.(swig-lispify "nc_get_var1_schar" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_schar" 'function))
 
 (cffi:defcfun ("nc_put_var1_short" #.(swig-lispify "nc_put_var1_short" 'function)) :int
   (ncid :int)
@@ -1308,11 +1942,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_short" 'function))
+
 (cffi:defcfun ("nc_get_var1_short" #.(swig-lispify "nc_get_var1_short" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_short" 'function))
 
 (cffi:defcfun ("nc_put_var1_int" #.(swig-lispify "nc_put_var1_int" 'function)) :int
   (ncid :int)
@@ -1320,11 +1958,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_int" 'function))
+
 (cffi:defcfun ("nc_get_var1_int" #.(swig-lispify "nc_get_var1_int" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_int" 'function))
 
 (cffi:defcfun ("nc_put_var1_long" #.(swig-lispify "nc_put_var1_long" 'function)) :int
   (ncid :int)
@@ -1332,11 +1974,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_long" 'function))
+
 (cffi:defcfun ("nc_get_var1_long" #.(swig-lispify "nc_get_var1_long" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_long" 'function))
 
 (cffi:defcfun ("nc_put_var1_float" #.(swig-lispify "nc_put_var1_float" 'function)) :int
   (ncid :int)
@@ -1344,11 +1990,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_float" 'function))
+
 (cffi:defcfun ("nc_get_var1_float" #.(swig-lispify "nc_get_var1_float" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_float" 'function))
 
 (cffi:defcfun ("nc_put_var1_double" #.(swig-lispify "nc_put_var1_double" 'function)) :int
   (ncid :int)
@@ -1356,11 +2006,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_double" 'function))
+
 (cffi:defcfun ("nc_get_var1_double" #.(swig-lispify "nc_get_var1_double" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_double" 'function))
 
 (cffi:defcfun ("nc_put_var1_ubyte" #.(swig-lispify "nc_put_var1_ubyte" 'function)) :int
   (ncid :int)
@@ -1368,11 +2022,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_ubyte" 'function))
+
 (cffi:defcfun ("nc_get_var1_ubyte" #.(swig-lispify "nc_get_var1_ubyte" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_ubyte" 'function))
 
 (cffi:defcfun ("nc_put_var1_ushort" #.(swig-lispify "nc_put_var1_ushort" 'function)) :int
   (ncid :int)
@@ -1380,11 +2038,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_ushort" 'function))
+
 (cffi:defcfun ("nc_get_var1_ushort" #.(swig-lispify "nc_get_var1_ushort" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_ushort" 'function))
 
 (cffi:defcfun ("nc_put_var1_uint" #.(swig-lispify "nc_put_var1_uint" 'function)) :int
   (ncid :int)
@@ -1392,11 +2054,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_uint" 'function))
+
 (cffi:defcfun ("nc_get_var1_uint" #.(swig-lispify "nc_get_var1_uint" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_uint" 'function))
 
 (cffi:defcfun ("nc_put_var1_longlong" #.(swig-lispify "nc_put_var1_longlong" 'function)) :int
   (ncid :int)
@@ -1404,11 +2070,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_longlong" 'function))
+
 (cffi:defcfun ("nc_get_var1_longlong" #.(swig-lispify "nc_get_var1_longlong" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_longlong" 'function))
 
 (cffi:defcfun ("nc_put_var1_ulonglong" #.(swig-lispify "nc_put_var1_ulonglong" 'function)) :int
   (ncid :int)
@@ -1416,11 +2086,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_ulonglong" 'function))
+
 (cffi:defcfun ("nc_get_var1_ulonglong" #.(swig-lispify "nc_get_var1_ulonglong" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_ulonglong" 'function))
 
 (cffi:defcfun ("nc_put_var1_string" #.(swig-lispify "nc_put_var1_string" 'function)) :int
   (ncid :int)
@@ -1428,11 +2102,15 @@
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var1_string" 'function))
+
 (cffi:defcfun ("nc_get_var1_string" #.(swig-lispify "nc_get_var1_string" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var1_string" 'function))
 
 (cffi:defcfun ("nc_put_vara_text" #.(swig-lispify "nc_put_vara_text" 'function)) :int
   (ncid :int)
@@ -1441,12 +2119,16 @@
   (countp :pointer)
   (op :string))
 
+(cl:export '#.(swig-lispify "nc_put_vara_text" 'function))
+
 (cffi:defcfun ("nc_get_vara_text" #.(swig-lispify "nc_get_vara_text" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :string))
+
+(cl:export '#.(swig-lispify "nc_get_vara_text" 'function))
 
 (cffi:defcfun ("nc_put_vara_uchar" #.(swig-lispify "nc_put_vara_uchar" 'function)) :int
   (ncid :int)
@@ -1455,12 +2137,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_uchar" 'function))
+
 (cffi:defcfun ("nc_get_vara_uchar" #.(swig-lispify "nc_get_vara_uchar" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_uchar" 'function))
 
 (cffi:defcfun ("nc_put_vara_schar" #.(swig-lispify "nc_put_vara_schar" 'function)) :int
   (ncid :int)
@@ -1469,12 +2155,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_schar" 'function))
+
 (cffi:defcfun ("nc_get_vara_schar" #.(swig-lispify "nc_get_vara_schar" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_schar" 'function))
 
 (cffi:defcfun ("nc_put_vara_short" #.(swig-lispify "nc_put_vara_short" 'function)) :int
   (ncid :int)
@@ -1483,12 +2173,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_short" 'function))
+
 (cffi:defcfun ("nc_get_vara_short" #.(swig-lispify "nc_get_vara_short" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_short" 'function))
 
 (cffi:defcfun ("nc_put_vara_int" #.(swig-lispify "nc_put_vara_int" 'function)) :int
   (ncid :int)
@@ -1497,12 +2191,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_int" 'function))
+
 (cffi:defcfun ("nc_get_vara_int" #.(swig-lispify "nc_get_vara_int" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_int" 'function))
 
 (cffi:defcfun ("nc_put_vara_long" #.(swig-lispify "nc_put_vara_long" 'function)) :int
   (ncid :int)
@@ -1511,12 +2209,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_long" 'function))
+
 (cffi:defcfun ("nc_get_vara_long" #.(swig-lispify "nc_get_vara_long" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_long" 'function))
 
 (cffi:defcfun ("nc_put_vara_float" #.(swig-lispify "nc_put_vara_float" 'function)) :int
   (ncid :int)
@@ -1525,12 +2227,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_float" 'function))
+
 (cffi:defcfun ("nc_get_vara_float" #.(swig-lispify "nc_get_vara_float" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_float" 'function))
 
 (cffi:defcfun ("nc_put_vara_double" #.(swig-lispify "nc_put_vara_double" 'function)) :int
   (ncid :int)
@@ -1539,12 +2245,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_double" 'function))
+
 (cffi:defcfun ("nc_get_vara_double" #.(swig-lispify "nc_get_vara_double" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_double" 'function))
 
 (cffi:defcfun ("nc_put_vara_ubyte" #.(swig-lispify "nc_put_vara_ubyte" 'function)) :int
   (ncid :int)
@@ -1553,12 +2263,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_ubyte" 'function))
+
 (cffi:defcfun ("nc_get_vara_ubyte" #.(swig-lispify "nc_get_vara_ubyte" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_ubyte" 'function))
 
 (cffi:defcfun ("nc_put_vara_ushort" #.(swig-lispify "nc_put_vara_ushort" 'function)) :int
   (ncid :int)
@@ -1567,12 +2281,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_ushort" 'function))
+
 (cffi:defcfun ("nc_get_vara_ushort" #.(swig-lispify "nc_get_vara_ushort" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_ushort" 'function))
 
 (cffi:defcfun ("nc_put_vara_uint" #.(swig-lispify "nc_put_vara_uint" 'function)) :int
   (ncid :int)
@@ -1581,12 +2299,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_uint" 'function))
+
 (cffi:defcfun ("nc_get_vara_uint" #.(swig-lispify "nc_get_vara_uint" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_uint" 'function))
 
 (cffi:defcfun ("nc_put_vara_longlong" #.(swig-lispify "nc_put_vara_longlong" 'function)) :int
   (ncid :int)
@@ -1595,12 +2317,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_longlong" 'function))
+
 (cffi:defcfun ("nc_get_vara_longlong" #.(swig-lispify "nc_get_vara_longlong" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_longlong" 'function))
 
 (cffi:defcfun ("nc_put_vara_ulonglong" #.(swig-lispify "nc_put_vara_ulonglong" 'function)) :int
   (ncid :int)
@@ -1609,12 +2335,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_ulonglong" 'function))
+
 (cffi:defcfun ("nc_get_vara_ulonglong" #.(swig-lispify "nc_get_vara_ulonglong" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_ulonglong" 'function))
 
 (cffi:defcfun ("nc_put_vara_string" #.(swig-lispify "nc_put_vara_string" 'function)) :int
   (ncid :int)
@@ -1623,12 +2353,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vara_string" 'function))
+
 (cffi:defcfun ("nc_get_vara_string" #.(swig-lispify "nc_get_vara_string" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vara_string" 'function))
 
 (cffi:defcfun ("nc_put_vars_text" #.(swig-lispify "nc_put_vars_text" 'function)) :int
   (ncid :int)
@@ -1638,6 +2372,8 @@
   (stridep :pointer)
   (op :string))
 
+(cl:export '#.(swig-lispify "nc_put_vars_text" 'function))
+
 (cffi:defcfun ("nc_get_vars_text" #.(swig-lispify "nc_get_vars_text" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1645,6 +2381,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :string))
+
+(cl:export '#.(swig-lispify "nc_get_vars_text" 'function))
 
 (cffi:defcfun ("nc_put_vars_uchar" #.(swig-lispify "nc_put_vars_uchar" 'function)) :int
   (ncid :int)
@@ -1654,6 +2392,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_uchar" 'function))
+
 (cffi:defcfun ("nc_get_vars_uchar" #.(swig-lispify "nc_get_vars_uchar" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1661,6 +2401,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_uchar" 'function))
 
 (cffi:defcfun ("nc_put_vars_schar" #.(swig-lispify "nc_put_vars_schar" 'function)) :int
   (ncid :int)
@@ -1670,6 +2412,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_schar" 'function))
+
 (cffi:defcfun ("nc_get_vars_schar" #.(swig-lispify "nc_get_vars_schar" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1677,6 +2421,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_schar" 'function))
 
 (cffi:defcfun ("nc_put_vars_short" #.(swig-lispify "nc_put_vars_short" 'function)) :int
   (ncid :int)
@@ -1686,6 +2432,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_short" 'function))
+
 (cffi:defcfun ("nc_get_vars_short" #.(swig-lispify "nc_get_vars_short" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1693,6 +2441,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_short" 'function))
 
 (cffi:defcfun ("nc_put_vars_int" #.(swig-lispify "nc_put_vars_int" 'function)) :int
   (ncid :int)
@@ -1702,6 +2452,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_int" 'function))
+
 (cffi:defcfun ("nc_get_vars_int" #.(swig-lispify "nc_get_vars_int" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1709,6 +2461,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_int" 'function))
 
 (cffi:defcfun ("nc_put_vars_long" #.(swig-lispify "nc_put_vars_long" 'function)) :int
   (ncid :int)
@@ -1718,6 +2472,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_long" 'function))
+
 (cffi:defcfun ("nc_get_vars_long" #.(swig-lispify "nc_get_vars_long" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1725,6 +2481,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_long" 'function))
 
 (cffi:defcfun ("nc_put_vars_float" #.(swig-lispify "nc_put_vars_float" 'function)) :int
   (ncid :int)
@@ -1734,6 +2492,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_float" 'function))
+
 (cffi:defcfun ("nc_get_vars_float" #.(swig-lispify "nc_get_vars_float" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1741,6 +2501,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_float" 'function))
 
 (cffi:defcfun ("nc_put_vars_double" #.(swig-lispify "nc_put_vars_double" 'function)) :int
   (ncid :int)
@@ -1750,6 +2512,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_double" 'function))
+
 (cffi:defcfun ("nc_get_vars_double" #.(swig-lispify "nc_get_vars_double" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1757,6 +2521,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_double" 'function))
 
 (cffi:defcfun ("nc_put_vars_ubyte" #.(swig-lispify "nc_put_vars_ubyte" 'function)) :int
   (ncid :int)
@@ -1766,6 +2532,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_ubyte" 'function))
+
 (cffi:defcfun ("nc_get_vars_ubyte" #.(swig-lispify "nc_get_vars_ubyte" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1773,6 +2541,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_ubyte" 'function))
 
 (cffi:defcfun ("nc_put_vars_ushort" #.(swig-lispify "nc_put_vars_ushort" 'function)) :int
   (ncid :int)
@@ -1782,6 +2552,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_ushort" 'function))
+
 (cffi:defcfun ("nc_get_vars_ushort" #.(swig-lispify "nc_get_vars_ushort" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1789,6 +2561,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_ushort" 'function))
 
 (cffi:defcfun ("nc_put_vars_uint" #.(swig-lispify "nc_put_vars_uint" 'function)) :int
   (ncid :int)
@@ -1798,6 +2572,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_uint" 'function))
+
 (cffi:defcfun ("nc_get_vars_uint" #.(swig-lispify "nc_get_vars_uint" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1805,6 +2581,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_uint" 'function))
 
 (cffi:defcfun ("nc_put_vars_longlong" #.(swig-lispify "nc_put_vars_longlong" 'function)) :int
   (ncid :int)
@@ -1814,6 +2592,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_longlong" 'function))
+
 (cffi:defcfun ("nc_get_vars_longlong" #.(swig-lispify "nc_get_vars_longlong" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1821,6 +2601,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_longlong" 'function))
 
 (cffi:defcfun ("nc_put_vars_ulonglong" #.(swig-lispify "nc_put_vars_ulonglong" 'function)) :int
   (ncid :int)
@@ -1830,6 +2612,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_ulonglong" 'function))
+
 (cffi:defcfun ("nc_get_vars_ulonglong" #.(swig-lispify "nc_get_vars_ulonglong" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1837,6 +2621,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_ulonglong" 'function))
 
 (cffi:defcfun ("nc_put_vars_string" #.(swig-lispify "nc_put_vars_string" 'function)) :int
   (ncid :int)
@@ -1846,6 +2632,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_vars_string" 'function))
+
 (cffi:defcfun ("nc_get_vars_string" #.(swig-lispify "nc_get_vars_string" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1853,6 +2641,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_vars_string" 'function))
 
 (cffi:defcfun ("nc_put_varm_text" #.(swig-lispify "nc_put_varm_text" 'function)) :int
   (ncid :int)
@@ -1863,6 +2653,8 @@
   (imapp :pointer)
   (op :string))
 
+(cl:export '#.(swig-lispify "nc_put_varm_text" 'function))
+
 (cffi:defcfun ("nc_get_varm_text" #.(swig-lispify "nc_get_varm_text" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1871,6 +2663,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :string))
+
+(cl:export '#.(swig-lispify "nc_get_varm_text" 'function))
 
 (cffi:defcfun ("nc_put_varm_uchar" #.(swig-lispify "nc_put_varm_uchar" 'function)) :int
   (ncid :int)
@@ -1881,6 +2675,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_uchar" 'function))
+
 (cffi:defcfun ("nc_get_varm_uchar" #.(swig-lispify "nc_get_varm_uchar" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1889,6 +2685,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_uchar" 'function))
 
 (cffi:defcfun ("nc_put_varm_schar" #.(swig-lispify "nc_put_varm_schar" 'function)) :int
   (ncid :int)
@@ -1899,6 +2697,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_schar" 'function))
+
 (cffi:defcfun ("nc_get_varm_schar" #.(swig-lispify "nc_get_varm_schar" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1907,6 +2707,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_schar" 'function))
 
 (cffi:defcfun ("nc_put_varm_short" #.(swig-lispify "nc_put_varm_short" 'function)) :int
   (ncid :int)
@@ -1917,6 +2719,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_short" 'function))
+
 (cffi:defcfun ("nc_get_varm_short" #.(swig-lispify "nc_get_varm_short" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1925,6 +2729,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_short" 'function))
 
 (cffi:defcfun ("nc_put_varm_int" #.(swig-lispify "nc_put_varm_int" 'function)) :int
   (ncid :int)
@@ -1935,6 +2741,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_int" 'function))
+
 (cffi:defcfun ("nc_get_varm_int" #.(swig-lispify "nc_get_varm_int" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1943,6 +2751,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_int" 'function))
 
 (cffi:defcfun ("nc_put_varm_long" #.(swig-lispify "nc_put_varm_long" 'function)) :int
   (ncid :int)
@@ -1953,6 +2763,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_long" 'function))
+
 (cffi:defcfun ("nc_get_varm_long" #.(swig-lispify "nc_get_varm_long" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1961,6 +2773,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_long" 'function))
 
 (cffi:defcfun ("nc_put_varm_float" #.(swig-lispify "nc_put_varm_float" 'function)) :int
   (ncid :int)
@@ -1971,6 +2785,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_float" 'function))
+
 (cffi:defcfun ("nc_get_varm_float" #.(swig-lispify "nc_get_varm_float" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1979,6 +2795,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_float" 'function))
 
 (cffi:defcfun ("nc_put_varm_double" #.(swig-lispify "nc_put_varm_double" 'function)) :int
   (ncid :int)
@@ -1989,6 +2807,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_double" 'function))
+
 (cffi:defcfun ("nc_get_varm_double" #.(swig-lispify "nc_get_varm_double" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -1997,6 +2817,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_double" 'function))
 
 (cffi:defcfun ("nc_put_varm_ubyte" #.(swig-lispify "nc_put_varm_ubyte" 'function)) :int
   (ncid :int)
@@ -2007,6 +2829,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_ubyte" 'function))
+
 (cffi:defcfun ("nc_get_varm_ubyte" #.(swig-lispify "nc_get_varm_ubyte" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2015,6 +2839,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_ubyte" 'function))
 
 (cffi:defcfun ("nc_put_varm_ushort" #.(swig-lispify "nc_put_varm_ushort" 'function)) :int
   (ncid :int)
@@ -2025,6 +2851,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_ushort" 'function))
+
 (cffi:defcfun ("nc_get_varm_ushort" #.(swig-lispify "nc_get_varm_ushort" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2033,6 +2861,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_ushort" 'function))
 
 (cffi:defcfun ("nc_put_varm_uint" #.(swig-lispify "nc_put_varm_uint" 'function)) :int
   (ncid :int)
@@ -2043,6 +2873,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_uint" 'function))
+
 (cffi:defcfun ("nc_get_varm_uint" #.(swig-lispify "nc_get_varm_uint" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2051,6 +2883,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_uint" 'function))
 
 (cffi:defcfun ("nc_put_varm_longlong" #.(swig-lispify "nc_put_varm_longlong" 'function)) :int
   (ncid :int)
@@ -2061,6 +2895,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_longlong" 'function))
+
 (cffi:defcfun ("nc_get_varm_longlong" #.(swig-lispify "nc_get_varm_longlong" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2069,6 +2905,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_longlong" 'function))
 
 (cffi:defcfun ("nc_put_varm_ulonglong" #.(swig-lispify "nc_put_varm_ulonglong" 'function)) :int
   (ncid :int)
@@ -2079,6 +2917,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_ulonglong" 'function))
+
 (cffi:defcfun ("nc_get_varm_ulonglong" #.(swig-lispify "nc_get_varm_ulonglong" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2087,6 +2927,8 @@
   (stridep :pointer)
   (imapp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_varm_ulonglong" 'function))
 
 (cffi:defcfun ("nc_put_varm_string" #.(swig-lispify "nc_put_varm_string" 'function)) :int
   (ncid :int)
@@ -2097,6 +2939,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_varm_string" 'function))
+
 (cffi:defcfun ("nc_get_varm_string" #.(swig-lispify "nc_get_varm_string" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2106,145 +2950,203 @@
   (imapp :pointer)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_varm_string" 'function))
+
 (cffi:defcfun ("nc_put_var_text" #.(swig-lispify "nc_put_var_text" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :string))
+
+(cl:export '#.(swig-lispify "nc_put_var_text" 'function))
 
 (cffi:defcfun ("nc_get_var_text" #.(swig-lispify "nc_get_var_text" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :string))
 
+(cl:export '#.(swig-lispify "nc_get_var_text" 'function))
+
 (cffi:defcfun ("nc_put_var_uchar" #.(swig-lispify "nc_put_var_uchar" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_uchar" 'function))
 
 (cffi:defcfun ("nc_get_var_uchar" #.(swig-lispify "nc_get_var_uchar" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_uchar" 'function))
+
 (cffi:defcfun ("nc_put_var_schar" #.(swig-lispify "nc_put_var_schar" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_schar" 'function))
 
 (cffi:defcfun ("nc_get_var_schar" #.(swig-lispify "nc_get_var_schar" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_schar" 'function))
+
 (cffi:defcfun ("nc_put_var_short" #.(swig-lispify "nc_put_var_short" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_short" 'function))
 
 (cffi:defcfun ("nc_get_var_short" #.(swig-lispify "nc_get_var_short" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_short" 'function))
+
 (cffi:defcfun ("nc_put_var_int" #.(swig-lispify "nc_put_var_int" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_int" 'function))
 
 (cffi:defcfun ("nc_get_var_int" #.(swig-lispify "nc_get_var_int" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_int" 'function))
+
 (cffi:defcfun ("nc_put_var_long" #.(swig-lispify "nc_put_var_long" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_long" 'function))
 
 (cffi:defcfun ("nc_get_var_long" #.(swig-lispify "nc_get_var_long" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_long" 'function))
+
 (cffi:defcfun ("nc_put_var_float" #.(swig-lispify "nc_put_var_float" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_float" 'function))
 
 (cffi:defcfun ("nc_get_var_float" #.(swig-lispify "nc_get_var_float" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_float" 'function))
+
 (cffi:defcfun ("nc_put_var_double" #.(swig-lispify "nc_put_var_double" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_double" 'function))
 
 (cffi:defcfun ("nc_get_var_double" #.(swig-lispify "nc_get_var_double" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_double" 'function))
+
 (cffi:defcfun ("nc_put_var_ubyte" #.(swig-lispify "nc_put_var_ubyte" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_ubyte" 'function))
 
 (cffi:defcfun ("nc_get_var_ubyte" #.(swig-lispify "nc_get_var_ubyte" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_ubyte" 'function))
+
 (cffi:defcfun ("nc_put_var_ushort" #.(swig-lispify "nc_put_var_ushort" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_ushort" 'function))
 
 (cffi:defcfun ("nc_get_var_ushort" #.(swig-lispify "nc_get_var_ushort" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_ushort" 'function))
+
 (cffi:defcfun ("nc_put_var_uint" #.(swig-lispify "nc_put_var_uint" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_uint" 'function))
 
 (cffi:defcfun ("nc_get_var_uint" #.(swig-lispify "nc_get_var_uint" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_uint" 'function))
+
 (cffi:defcfun ("nc_put_var_longlong" #.(swig-lispify "nc_put_var_longlong" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_longlong" 'function))
 
 (cffi:defcfun ("nc_get_var_longlong" #.(swig-lispify "nc_get_var_longlong" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_longlong" 'function))
+
 (cffi:defcfun ("nc_put_var_ulonglong" #.(swig-lispify "nc_put_var_ulonglong" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
+
+(cl:export '#.(swig-lispify "nc_put_var_ulonglong" 'function))
 
 (cffi:defcfun ("nc_get_var_ulonglong" #.(swig-lispify "nc_get_var_ulonglong" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "nc_get_var_ulonglong" 'function))
+
 (cffi:defcfun ("nc_put_var_string" #.(swig-lispify "nc_put_var_string" 'function)) :int
   (ncid :int)
   (varid :int)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "nc_put_var_string" 'function))
+
 (cffi:defcfun ("nc_get_var_string" #.(swig-lispify "nc_get_var_string" 'function)) :int
   (ncid :int)
   (varid :int)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "nc_get_var_string" 'function))
 
 (cffi:defcfun ("nc__create_mp" #.(swig-lispify "nc__create_mp" 'function)) :int
   (path :string)
@@ -2254,6 +3156,8 @@
   (chunksizehintp :pointer)
   (ncidp :pointer))
 
+(cl:export '#.(swig-lispify "nc__create_mp" 'function))
+
 (cffi:defcfun ("nc__open_mp" #.(swig-lispify "nc__open_mp" 'function)) :int
   (path :string)
   (mode :int)
@@ -2261,52 +3165,92 @@
   (chunksizehintp :pointer)
   (ncidp :pointer))
 
+(cl:export '#.(swig-lispify "nc__open_mp" 'function))
+
 (cffi:defcfun ("nc_delete" #.(swig-lispify "nc_delete" 'function)) :int
   (path :string))
+
+(cl:export '#.(swig-lispify "nc_delete" 'function))
 
 (cffi:defcfun ("nc_delete_mp" #.(swig-lispify "nc_delete_mp" 'function)) :int
   (path :string)
   (basepe :int))
 
+(cl:export '#.(swig-lispify "nc_delete_mp" 'function))
+
 (cffi:defcfun ("nc_set_base_pe" #.(swig-lispify "nc_set_base_pe" 'function)) :int
   (ncid :int)
   (pe :int))
+
+(cl:export '#.(swig-lispify "nc_set_base_pe" 'function))
 
 (cffi:defcfun ("nc_inq_base_pe" #.(swig-lispify "nc_inq_base_pe" 'function)) :int
   (ncid :int)
   (pe :pointer))
 
+(cl:export '#.(swig-lispify "nc_inq_base_pe" 'function))
+
 (cl:defconstant #.(swig-lispify "FILL_LONG" 'constant) -2147483647)
+
+(cl:export '#.(swig-lispify "FILL_LONG" 'constant))
 
 (cl:defconstant #.(swig-lispify "FILL_FLOAT" 'constant) 9.9692099683868690d+36)
 
+(cl:export '#.(swig-lispify "FILL_FLOAT" 'constant))
+
 (cl:defconstant #.(swig-lispify "FILL_DOUBLE" 'constant) 9.9692099683868690d+36)
+
+(cl:export '#.(swig-lispify "FILL_DOUBLE" 'constant))
 
 (cl:defconstant #.(swig-lispify "MAX_NC_DIMS" 'constant) 1024)
 
+(cl:export '#.(swig-lispify "MAX_NC_DIMS" 'constant))
+
 (cl:defconstant #.(swig-lispify "MAX_NC_ATTRS" 'constant) 8192)
+
+(cl:export '#.(swig-lispify "MAX_NC_ATTRS" 'constant))
 
 (cl:defconstant #.(swig-lispify "MAX_NC_VARS" 'constant) 8192)
 
+(cl:export '#.(swig-lispify "MAX_NC_VARS" 'constant))
+
 (cl:defconstant #.(swig-lispify "MAX_NC_NAME" 'constant) 256)
 
+(cl:export '#.(swig-lispify "MAX_NC_NAME" 'constant))
+
 (cl:defconstant #.(swig-lispify "MAX_VAR_DIMS" 'constant) 1024)
+
+(cl:export '#.(swig-lispify "MAX_VAR_DIMS" 'constant))
 
 (cffi:defcvar ("ncerr" #.(swig-lispify "ncerr" 'variable))
  :int)
 
+(cl:export '#.(swig-lispify "ncerr" 'variable))
+
 (cl:defconstant #.(swig-lispify "NC_ENTOOL" 'constant) -53)
+
+(cl:export '#.(swig-lispify "NC_ENTOOL" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_EXDR" 'constant) -32)
 
+(cl:export '#.(swig-lispify "NC_EXDR" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_SYSERR" 'constant) -31)
+
+(cl:export '#.(swig-lispify "NC_SYSERR" 'constant))
 
 (cl:defconstant #.(swig-lispify "NC_FATAL" 'constant) 1)
 
+(cl:export '#.(swig-lispify "NC_FATAL" 'constant))
+
 (cl:defconstant #.(swig-lispify "NC_VERBOSE" 'constant) 2)
+
+(cl:export '#.(swig-lispify "NC_VERBOSE" 'constant))
 
 (cffi:defcvar ("ncopts" #.(swig-lispify "ncopts" 'variable))
  :int)
+
+(cl:export '#.(swig-lispify "ncopts" 'variable))
 
 (cffi:defcfun ("nc_advise" #.(swig-lispify "nc_advise" 'function)) :void
   (cdf_routine_name :string)
@@ -2314,35 +3258,55 @@
   (fmt :string)
   cl:&rest)
 
+(cl:export '#.(swig-lispify "nc_advise" 'function))
+
 (cffi:defcfun ("nctypelen" #.(swig-lispify "nctypelen" 'function)) :int
   (datatype :int))
+
+(cl:export '#.(swig-lispify "nctypelen" 'function))
 
 (cffi:defcfun ("nccreate" #.(swig-lispify "nccreate" 'function)) :int
   (path :string)
   (cmode :int))
 
+(cl:export '#.(swig-lispify "nccreate" 'function))
+
 (cffi:defcfun ("ncopen" #.(swig-lispify "ncopen" 'function)) :int
   (path :string)
   (mode :int))
+
+(cl:export '#.(swig-lispify "ncopen" 'function))
 
 (cffi:defcfun ("ncsetfill" #.(swig-lispify "ncsetfill" 'function)) :int
   (ncid :int)
   (fillmode :int))
 
+(cl:export '#.(swig-lispify "ncsetfill" 'function))
+
 (cffi:defcfun ("ncredef" #.(swig-lispify "ncredef" 'function)) :int
   (ncid :int))
+
+(cl:export '#.(swig-lispify "ncredef" 'function))
 
 (cffi:defcfun ("ncendef" #.(swig-lispify "ncendef" 'function)) :int
   (ncid :int))
 
+(cl:export '#.(swig-lispify "ncendef" 'function))
+
 (cffi:defcfun ("ncsync" #.(swig-lispify "ncsync" 'function)) :int
   (ncid :int))
+
+(cl:export '#.(swig-lispify "ncsync" 'function))
 
 (cffi:defcfun ("ncabort" #.(swig-lispify "ncabort" 'function)) :int
   (ncid :int))
 
+(cl:export '#.(swig-lispify "ncabort" 'function))
+
 (cffi:defcfun ("ncclose" #.(swig-lispify "ncclose" 'function)) :int
   (ncid :int))
+
+(cl:export '#.(swig-lispify "ncclose" 'function))
 
 (cffi:defcfun ("ncinquire" #.(swig-lispify "ncinquire" 'function)) :int
   (ncid :int)
@@ -2351,14 +3315,20 @@
   (nattsp :pointer)
   (unlimdimp :pointer))
 
+(cl:export '#.(swig-lispify "ncinquire" 'function))
+
 (cffi:defcfun ("ncdimdef" #.(swig-lispify "ncdimdef" 'function)) :int
   (ncid :int)
   (name :string)
   (len :long))
 
+(cl:export '#.(swig-lispify "ncdimdef" 'function))
+
 (cffi:defcfun ("ncdimid" #.(swig-lispify "ncdimid" 'function)) :int
   (ncid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "ncdimid" 'function))
 
 (cffi:defcfun ("ncdiminq" #.(swig-lispify "ncdiminq" 'function)) :int
   (ncid :int)
@@ -2366,10 +3336,14 @@
   (name :string)
   (lenp :pointer))
 
+(cl:export '#.(swig-lispify "ncdiminq" 'function))
+
 (cffi:defcfun ("ncdimrename" #.(swig-lispify "ncdimrename" 'function)) :int
   (ncid :int)
   (dimid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "ncdimrename" 'function))
 
 (cffi:defcfun ("ncattput" #.(swig-lispify "ncattput" 'function)) :int
   (ncid :int)
@@ -2379,6 +3353,8 @@
   (len :int)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "ncattput" 'function))
+
 (cffi:defcfun ("ncattinq" #.(swig-lispify "ncattinq" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2386,11 +3362,15 @@
   (xtypep :pointer)
   (lenp :pointer))
 
+(cl:export '#.(swig-lispify "ncattinq" 'function))
+
 (cffi:defcfun ("ncattget" #.(swig-lispify "ncattget" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "ncattget" 'function))
 
 (cffi:defcfun ("ncattcopy" #.(swig-lispify "ncattcopy" 'function)) :int
   (ncid_in :int)
@@ -2399,11 +3379,15 @@
   (ncid_out :int)
   (varid_out :int))
 
+(cl:export '#.(swig-lispify "ncattcopy" 'function))
+
 (cffi:defcfun ("ncattname" #.(swig-lispify "ncattname" 'function)) :int
   (ncid :int)
   (varid :int)
   (attnum :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "ncattname" 'function))
 
 (cffi:defcfun ("ncattrename" #.(swig-lispify "ncattrename" 'function)) :int
   (ncid :int)
@@ -2411,10 +3395,14 @@
   (name :string)
   (newname :string))
 
+(cl:export '#.(swig-lispify "ncattrename" 'function))
+
 (cffi:defcfun ("ncattdel" #.(swig-lispify "ncattdel" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "ncattdel" 'function))
 
 (cffi:defcfun ("ncvardef" #.(swig-lispify "ncvardef" 'function)) :int
   (ncid :int)
@@ -2423,9 +3411,13 @@
   (ndims :int)
   (dimidsp :pointer))
 
+(cl:export '#.(swig-lispify "ncvardef" 'function))
+
 (cffi:defcfun ("ncvarid" #.(swig-lispify "ncvarid" 'function)) :int
   (ncid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "ncvarid" 'function))
 
 (cffi:defcfun ("ncvarinq" #.(swig-lispify "ncvarinq" 'function)) :int
   (ncid :int)
@@ -2436,17 +3428,23 @@
   (dimidsp :pointer)
   (nattsp :pointer))
 
+(cl:export '#.(swig-lispify "ncvarinq" 'function))
+
 (cffi:defcfun ("ncvarput1" #.(swig-lispify "ncvarput1" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "ncvarput1" 'function))
+
 (cffi:defcfun ("ncvarget1" #.(swig-lispify "ncvarget1" 'function)) :int
   (ncid :int)
   (varid :int)
   (indexp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "ncvarget1" 'function))
 
 (cffi:defcfun ("ncvarput" #.(swig-lispify "ncvarput" 'function)) :int
   (ncid :int)
@@ -2455,12 +3453,16 @@
   (countp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "ncvarput" 'function))
+
 (cffi:defcfun ("ncvarget" #.(swig-lispify "ncvarget" 'function)) :int
   (ncid :int)
   (varid :int)
   (startp :pointer)
   (countp :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "ncvarget" 'function))
 
 (cffi:defcfun ("ncvarputs" #.(swig-lispify "ncvarputs" 'function)) :int
   (ncid :int)
@@ -2470,6 +3472,8 @@
   (stridep :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "ncvarputs" 'function))
+
 (cffi:defcfun ("ncvargets" #.(swig-lispify "ncvargets" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2477,6 +3481,8 @@
   (countp :pointer)
   (stridep :pointer)
   (ip :pointer))
+
+(cl:export '#.(swig-lispify "ncvargets" 'function))
 
 (cffi:defcfun ("ncvarputg" #.(swig-lispify "ncvarputg" 'function)) :int
   (ncid :int)
@@ -2487,6 +3493,8 @@
   (imapp :pointer)
   (op :pointer))
 
+(cl:export '#.(swig-lispify "ncvarputg" 'function))
+
 (cffi:defcfun ("ncvargetg" #.(swig-lispify "ncvargetg" 'function)) :int
   (ncid :int)
   (varid :int)
@@ -2496,10 +3504,14 @@
   (imapp :pointer)
   (ip :pointer))
 
+(cl:export '#.(swig-lispify "ncvargetg" 'function))
+
 (cffi:defcfun ("ncvarrename" #.(swig-lispify "ncvarrename" 'function)) :int
   (ncid :int)
   (varid :int)
   (name :string))
+
+(cl:export '#.(swig-lispify "ncvarrename" 'function))
 
 (cffi:defcfun ("ncrecinq" #.(swig-lispify "ncrecinq" 'function)) :int
   (ncid :int)
@@ -2507,14 +3519,20 @@
   (recvaridsp :pointer)
   (recsizesp :pointer))
 
+(cl:export '#.(swig-lispify "ncrecinq" 'function))
+
 (cffi:defcfun ("ncrecget" #.(swig-lispify "ncrecget" 'function)) :int
   (ncid :int)
   (recnum :long)
   (datap :pointer))
 
+(cl:export '#.(swig-lispify "ncrecget" 'function))
+
 (cffi:defcfun ("ncrecput" #.(swig-lispify "ncrecput" 'function)) :int
   (ncid :int)
   (recnum :long)
   (datap :pointer))
+
+(cl:export '#.(swig-lispify "ncrecput" 'function))
 
 
