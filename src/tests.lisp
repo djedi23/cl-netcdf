@@ -23,7 +23,7 @@
       (dotimes (i (* xd yd))
 	(setf (cffi:mem-aref data :int i) i))
       (nc-c:put-var-int (cffi:mem-ref ncid :int) (cffi:mem-ref varid :int)
-			      data)
+			data)
       
       (nc-c:close (cffi:mem-ref ncid :int))
       )))
@@ -59,7 +59,20 @@
       (dotimes (i (* xd yd))
 	(setf (cffi:mem-aref data :int i) i))
       (nc-c:put-var-int (netcdf::id cdf) (netcdf::get-variable cdf "data")
-			      data)
+			data)
       
       (nc-c:close (netcdf::id cdf))
       )))
+
+
+(defun nctest2 ()
+  (declare (optimize (debug 3)))
+  (let ((xd 10)
+	(yd 7)
+	(cdf (nc:create "/tmp/x.cdf")))
+    (nc:def-dim cdf "x" xd)
+    (nc:def-dim cdf "y" yd)
+    (nc:enddef cdf)
+    (nc:nc-close cdf)
+
+    ))

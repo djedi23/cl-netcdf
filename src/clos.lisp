@@ -1,6 +1,11 @@
 (defpackage :netcdf
   (:nicknames :nc)
-  (:use :cl))
+  (:use :cl)
+  (:export
+   nc-close
+   create
+   def-dim
+   enddef))
 (in-package :netcdf)
 
 
@@ -31,3 +36,21 @@
 	valeur
 	(error "%a non trouve dans les variables" name)
 	)))
+
+
+(defun create (path)
+  (cffi:with-foreign-objects ((ncid :int))
+    (nc-c:create path nc-c:+clobber+ ncid)
+    (make-instance 'netcdf::netcdf :id (cffi:mem-ref ncid :int))))
+
+(defun def-dim (cdf dim-name size)
+  (cffi:with-foreign-objects ((dimid :int))
+    (nc-c:def-dim (id cdf) dim-name (cffi:make-pointer size) dimid)
+    (put-dimension cdf dim-name (cffi:mem-ref dimid :int))
+    ))
+
+(defun enddef (cdf)
+  (nc-c:enddef (id cdf)))
+
+(defun nc-close (cdf)
+  (nc-c:close (id cdf)))
