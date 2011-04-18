@@ -3,6 +3,7 @@
   (:use :cl)
   (:export
    nc-close
+   copy-array
    create
    def-dim
    def-var
@@ -64,10 +65,19 @@
     ))
 
 
-(defun put-var-int (cdf var-name data)
-      (nc-c:put-var-int (id cdf) (get-variable cdf "data")
-			data))
+(defun copy-array (array cffi-pointer)
+  (loop for e across array
+     for i from 0
+     do
+       (setf (cffi:mem-aref cffi-pointer :int i)
+	     (aref array i))))
 
+
+(defun put-var-int (cdf var-name data)
+  (cffi:with-foreign-objects ((cdata :int (first (array-dimensions data))))
+    (nc:copy-array data cdata)
+    (nc-c:put-var-int (id cdf) (get-variable cdf var-name)
+		      cdata)))
 
 (defun enddef (cdf)
   (nc-c:enddef (id cdf)))

@@ -67,14 +67,19 @@
 
 (defun nctest2 ()
   (declare (optimize (debug 3)))
-  (let ((xd 10)
-	(yd 7)
-	(cdf (nc:create "/tmp/x.cdf")))
+  (let* ((xd 10)
+	 (yd 7)
+	 (cdf (nc:create "/tmp/x.cdf"))
+	 (ar (make-array (* xd yd))))
     (nc:def-dim cdf "x" xd)
     (nc:def-dim cdf "y" yd)
     (nc:def-var cdf "data" nc-c:+int+ '("x" "y"))
-
     (nc:enddef cdf)
+
+    (dotimes (i (* xd yd))
+      (setf (aref ar i) i))
+
+    (nc:put-var-int cdf "data" ar)
     (nc:nc-close cdf)
 
     ))
