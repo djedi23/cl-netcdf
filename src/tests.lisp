@@ -72,6 +72,8 @@
 	(cdf (nc:create "/tmp/x.cdf")))
     (nc:def-dim cdf "x" xd)
     (nc:def-dim cdf "y" yd)
+    (nc:def-var cdf "data" nc-c:+int+ '("x" "y"))
+
     (nc:enddef cdf)
     (nc:nc-close cdf)
 
