@@ -86,21 +86,46 @@
 
 (defun nctest3 ()
   (declare (optimize (debug 3)))
-  (let* ((xd 10)
-	 (yd 7)
-	 (cdf (nc:create "/tmp/x.cdf"))
-	 (ar (make-array (* xd yd))))
-    (nc:def-dim cdf "x" xd)
-    (nc:def-dim cdf "y" yd)
-    (nc:def-var cdf "data" nc-c:+int+ '("x" "y"))
-    (nc:put-att-text cdf "data" "attribut" "totitit")
+  (let* ((axes 2)
+	 (points 1000)
+	 (cdf (nc:create "/tmp/x.nc"))
+	 (ar (make-array (* 3 points))))
+    (nc:def-dim cdf "axes" axes)
+    (nc:def-dim cdf "tri" 3)
+    (nc:def-dim cdf "points" points)
+    (nc:def-dim cdf "time" nc-c:+unlimited+)
+    (nc:def-var cdf "locations" nc-c:+float+ '("points" "axes"))
+    (nc:def-var cdf "connections" nc-c:+int+ '("points" "tri"))
+    (nc:def-var cdf "data" nc-c:+float+ '("time" "points"))
+    (nc:put-att-text cdf "data" "field" "data, scalar,series")
+    (nc:put-att-text cdf "data" "positions" "locations")
+    (nc:put-att-text cdf "data" "connections" "connections,triangles") 
+
+    ;; (nc:def-var cdf "data" nc-c:+int+ '("x" "y"))
+    ;; (nc:put-att-text cdf "data" "attribut" "totitit")
     
     (nc:enddef cdf)
 
-    (dotimes (i (* xd yd))
-      (setf (aref ar i) i))
+    (dotimes (i (* axes points))
+      (setf (aref ar i) (random 1000)))
+    (nc:put-var-int cdf "locations" ar)
+    (dotimes (i (* 3 points))
+      (setf (aref ar i) (random points)))
+    (nc:put-var-int cdf "connections" ar)
 
-    (nc:put-var-int cdf "data" ar)
+
+    ;; (dotimes (i (* 2 points))
+    ;;   (setf (aref ar i) (random 100)))
+    ;; (nc:put-var-int cdf "data"ar)
+
+
+    (dotimes (i points)
+      (setf (aref ar i) (random 100)))
+    (nc:put-vara-int cdf "data" #(0 0) #(1 1000) ar)
+    (dotimes (i points)
+      (setf (aref ar i) (random 100)))
+    (nc:put-vara-int cdf "data" #(1 0) #(1 1000) ar)
+
     (nc:nc-close cdf)
 
     ))

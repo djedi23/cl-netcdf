@@ -9,6 +9,7 @@
    def-var
    enddef
    put-var-int
+   put-vara-int
    put-att-text
    ))
 (in-package :netcdf)
@@ -79,6 +80,18 @@
     (nc:copy-array data cdata)
     (nc-c:put-var-int (id cdf) (get-variable cdf var-name)
 		      cdata)))
+
+(defun put-vara-int (cdf var-name start count data)
+  (cffi:with-foreign-objects ((cdata :int (first (array-dimensions data)))
+			      (ccount :int (first (array-dimensions count)))
+			      (cstart :int (first (array-dimensions start))))
+    (nc:copy-array data cdata)
+    (nc:copy-array start cstart)
+    (nc:copy-array count ccount)
+    (nc-c:put-vara-int (id cdf) (get-variable cdf var-name)
+		       cstart
+		       ccount
+		       cdata)))
 
 (defun put-att-text (cdf var-name attribut value)
     (nc-c:put-att-text (id cdf) (get-variable cdf var-name) attribut (cffi-sys:make-pointer (length value)) value))
