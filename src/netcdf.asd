@@ -10,5 +10,6 @@
   :depends-on (:cffi)
   :components (
 	       (:file "netcdf")
+	       (:file "triangle")
 	       (:file "clos" :depends-on ("netcdf"))
 	       ))
