@@ -129,3 +129,36 @@
     (nc:nc-close cdf)
 
     ))
+
+
+(defun tritext (&optional (n 10))
+  (declare (optimize (debug 3)))
+  (cffi:with-foreign-objects ((in 'tri-c:triangulateio)
+			      (out 'tri-c:triangulateio)
+			      (vor 'tri-c:triangulateio)
+			      (ptlist :double (* n 2)))
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofpoints) n)
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofsegments) 0)
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofholes) 0)
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofregions) 0)
+    (dotimes (i (* 2 n))
+      (setf (cffi:mem-aref ptlist :double i) (coerce (random 1000.0) 'double-float)))
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:pointlist) ptlist)
+
+    (setf (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:edgelist) (cffi-sys:null-pointer))
+    (setf (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:edgemarkerlist) (cffi-sys:null-pointer))
+    (setf (cffi:foreign-slot-value vor 'tri-c:triangulateio 'tri-c:numberofpoints) 0)
+
+    (tri-c:triangulate "z" in out vor)
+
+
+    ;; (dotimes (i (* (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners) 
+    ;; 		   (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)))
+    ;;   (print (cffi:mem-aref (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:trianglelist) :int i))
+    ;;   )
+
+    (format T "corner:~a triangle:~a~%"
+	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners) 
+	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles))
+
+    ))
