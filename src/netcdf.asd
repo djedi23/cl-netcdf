@@ -11,5 +11,5 @@
   :components (
 	       (:file "netcdf")
 	       (:file "triangle")
-	       (:file "clos" :depends-on ("netcdf"))
+	       (:file "clos" :depends-on ("netcdf" "triangle"))
 	       ))

@@ -9,8 +9,11 @@
    def-var
    enddef
    put-var-int
+   put-var-double
    put-vara-int
    put-att-text
+
+   triangulate
    ))
 (in-package :netcdf)
 
@@ -59,7 +62,7 @@
   (cffi:with-foreign-objects ((varid :int)
 			      (dimsid :int (length dimensions)))
     (loop for d in dimensions
-       for i from 0 
+       for i from 0
        do
 	 (setf (cffi:mem-aref dimsid :int i) (get-dimension cdf d)))
     (nc-c:def-var (id cdf) var-name type (length dimensions) dimsid varid)
@@ -67,11 +70,11 @@
     ))
 
 
-(defun copy-array (array cffi-pointer)
+(defun copy-array (array cffi-pointer &optional (type :int))
   (loop for e across array
      for i from 0
      do
-       (setf (cffi:mem-aref cffi-pointer :int i)
+       (setf (cffi:mem-aref cffi-pointer type i)
 	     (aref array i))))
 
 
@@ -80,6 +83,13 @@
     (nc:copy-array data cdata)
     (nc-c:put-var-int (id cdf) (get-variable cdf var-name)
 		      cdata)))
+
+(defun put-var-double (cdf var-name data)
+  (cffi:with-foreign-objects ((cdata :double (first (array-dimensions data))))
+    (nc:copy-array data cdata :double)
+    (nc-c:put-var-double (id cdf) (get-variable cdf var-name)
+			 cdata)))
+
 
 (defun put-vara-int (cdf var-name start count data)
   (cffi:with-foreign-objects ((cdata :int (first (array-dimensions data)))
@@ -94,7 +104,7 @@
 		       cdata)))
 
 (defun put-att-text (cdf var-name attribut value)
-    (nc-c:put-att-text (id cdf) (get-variable cdf var-name) attribut (cffi-sys:make-pointer (length value)) value))
+  (nc-c:put-att-text (id cdf) (get-variable cdf var-name) attribut (cffi-sys:make-pointer (length value)) value))
 
 
 (defun enddef (cdf)
@@ -102,3 +112,40 @@
 
 (defun nc-close (cdf)
   (nc-c:close (id cdf)))
+
+
+
+
+(defun triangulate (pointlist)
+  (cffi:with-foreign-objects ((in 'tri-c:triangulateio)
+			      (out 'tri-c:triangulateio)
+			      (vor 'tri-c:triangulateio)
+			      (ptlist :double (array-total-size pointlist)))
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofpoints) (/ (array-total-size pointlist) 2))
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofsegments) 0)
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofholes) 0)
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:numberofregions) 0)
+    (copy-array pointlist  ptlist :double)
+    (setf (cffi:foreign-slot-value in 'tri-c:triangulateio 'tri-c:pointlist) ptlist)
+
+    (setf (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:edgelist) (cffi-sys:null-pointer))
+    (setf (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:edgemarkerlist) (cffi-sys:null-pointer))
+    (setf (cffi:foreign-slot-value vor 'tri-c:triangulateio 'tri-c:numberofpoints) 0)
+
+    (tri-c:triangulate "z" in out vor)
+
+
+    (let* ((nvertices (* (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners)
+			 (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)))
+	   (vertices (make-array nvertices)))
+
+    (format T "corner:~a triangle:~a ~a~%"
+	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners)
+	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)
+	    nvertices)
+
+      (dotimes (i nvertices)
+	(setf (aref vertices i) (cffi:mem-aref (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:trianglelist) :int i))
+	)
+      vertices)
+    ))
