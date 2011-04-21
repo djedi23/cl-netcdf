@@ -87,14 +87,21 @@
 (defun nctest3 ()
   (declare (optimize (debug 3)))
   (let* ((axes 2)
-	 (points 100)
+	 (points 10000)
 	 (cdf (nc:create "/tmp/x.nc"))
 	 (ar (make-array (* 2 points)))
+	 (triangles nil)
 	 (data (make-array points)))
+
+    (dotimes (i (* axes points))
+      (setf (aref ar i) (coerce (1+ (random (* 10.0d0 (1+ i)))) 'double-float)))
+    (setq triangles (nc:triangulate ar))
+    (print (first (array-dimensions triangles)))
+
     (nc:def-dim cdf "axes" axes)
     (nc:def-dim cdf "tri" 3)
     (nc:def-dim cdf "points" points)
-    (nc:def-dim cdf "ntriangles" (* 2 points))
+    (nc:def-dim cdf "ntriangles" (/ (first (array-dimensions triangles)) 3))
     (nc:def-dim cdf "time" nc-c:+unlimited+)
     (nc:def-var cdf "locations" nc-c:+float+ '("points" "axes"))
     (nc:def-var cdf "connections" nc-c:+int+ '("ntriangles" "tri"))
@@ -103,30 +110,17 @@
     (nc:put-att-text cdf "data" "positions" "locations")
     (nc:put-att-text cdf "data" "connections" "connections,triangles") 
 
-    ;; (nc:def-var cdf "data" nc-c:+int+ '("x" "y"))
-    ;; (nc:put-att-text cdf "data" "attribut" "totitit")
-    
     (nc:enddef cdf)
 
-    (dotimes (i (* axes points))
-      (setf (aref ar i) (coerce (1+ (random 1000.0d0)) 'double-float)))
     (nc:put-var-double cdf "locations" ar)
-    ;; (dotimes (i (* 3 points))
-    ;;   (setf (aref ar i) (random points)))
-    (nc:put-var-int cdf "connections" (nc:triangulate ar))
-
-
-    ;; (dotimes (i (* 2 points))
-    ;;   (setf (aref ar i) (random 100)))
-    ;; (nc:put-var-int cdf "data"ar)
-
+    (nc:put-var-int cdf "connections" triangles)
 
     (dotimes (i points)
-      (setf (aref data i) (random 100)))
-    (nc:put-vara-int cdf "data" #(0 0) #(1 100) data)
-    (dotimes (i points)
-      (setf (aref data i) (random 100)))
-    (nc:put-vara-int cdf "data" #(1 0) #(1 100) data)
+      (setf (aref data i) i))
+    (nc:put-vara-int cdf "data" #(0 0) #(1 10000) data)
+    ;; (dotimes (i points)
+    ;;   (setf (aref data i) (random 100)))
+    ;; (nc:put-vara-int cdf "data" #(1 0) #(1 100) data)
 
     (nc:nc-close cdf)
 
