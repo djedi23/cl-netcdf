@@ -11,6 +11,7 @@
    put-var-int
    put-var-double
    put-vara-int
+   put-vara-double
    put-att-text
 
    triangulate
@@ -90,7 +91,6 @@
     (nc-c:put-var-double (id cdf) (get-variable cdf var-name)
 			 cdata)))
 
-
 (defun put-vara-int (cdf var-name start count data)
   (cffi:with-foreign-objects ((cdata :int (first (array-dimensions data)))
 			      (ccount :int (first (array-dimensions count)))
@@ -99,6 +99,18 @@
     (nc:copy-array start cstart)
     (nc:copy-array count ccount)
     (nc-c:put-vara-int (id cdf) (get-variable cdf var-name)
+		       cstart
+		       ccount
+		       cdata)))
+
+(defun put-vara-double (cdf var-name start count data)
+  (cffi:with-foreign-objects ((cdata :double (first (array-dimensions data)))
+			      (ccount :int (first (array-dimensions count)))
+			      (cstart :int (first (array-dimensions start))))
+    (nc:copy-array data cdata :double)
+    (nc:copy-array start cstart)
+    (nc:copy-array count ccount)
+    (nc-c:put-vara-double (id cdf) (get-variable cdf var-name)
 		       cstart
 		       ccount
 		       cdata)))
@@ -139,10 +151,10 @@
 			 (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)))
 	   (vertices (make-array nvertices)))
 
-    (format T "corner:~a triangle:~a ~a~%"
-	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners)
-	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)
-	    nvertices)
+    ;; (format T "corner:~a triangle:~a ~a~%"
+    ;; 	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners)
+    ;; 	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)
+    ;; 	    nvertices)
 
       (dotimes (i nvertices)
 	(setf (aref vertices i) (cffi:mem-aref (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:trianglelist) :int i))
