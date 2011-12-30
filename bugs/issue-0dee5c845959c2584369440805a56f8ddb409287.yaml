@@ -5,8 +5,8 @@ type: :task
 component: ffi
 release: 
 reporter: djedi <djedi@bourdon>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2011-04-11 19:31:12.290652 Z
 references: []
 
@@ -20,3 +20,7 @@ log_events:
   - djedi <djedi@bourdon>
   - commented
   - Les premiers meta donnees sont la.
+- - 2011-12-30 17:23:46.557741 Z
+  - "Mo\xC3\xAFse Valvassori <djedi@ruche.djedi.org>"
+  - closed with disposition fixed
+  - ""
