@@ -111,12 +111,15 @@
     (nc:copy-array start cstart)
     (nc:copy-array count ccount)
     (nc-c:put-vara-double (id cdf) (get-variable cdf var-name)
-		       cstart
-		       ccount
-		       cdata)))
+			  cstart
+			  ccount
+			  cdata)))
 
 (defun put-att-text (cdf var-name attribut value)
-  (nc-c:put-att-text (id cdf) (get-variable cdf var-name) attribut (cffi-sys:make-pointer (length value)) value))
+  (let ((var (if (eq nc-c:+global+ var-name)
+		 nc-c:+global+
+		 (get-variable cdf var-name))))
+    (nc-c:put-att-text (id cdf) var attribut (cffi-sys:make-pointer (length value)) value)))
 
 
 (defun enddef (cdf)
@@ -151,10 +154,10 @@
 			 (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)))
 	   (vertices (make-array nvertices)))
 
-    ;; (format T "corner:~a triangle:~a ~a~%"
-    ;; 	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners)
-    ;; 	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)
-    ;; 	    nvertices)
+      ;; (format T "corner:~a triangle:~a ~a~%"
+      ;; 	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberofcorners)
+      ;; 	    (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:numberoftriangles)
+      ;; 	    nvertices)
 
       (dotimes (i nvertices)
 	(setf (aref vertices i) (cffi:mem-aref (cffi:foreign-slot-value out 'tri-c:triangulateio 'tri-c:trianglelist) :int i))
