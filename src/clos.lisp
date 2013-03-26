@@ -132,6 +132,11 @@
 
 
 (defun triangulate (pointlist)
+  "Triangule un ensemble de point.
+POINTLIST un array de points de la forme #( X0 Y0 X1 Y1 X2 Y2)
+
+Retour: tableau de points formant les triangles.  #( P1t0 P2t0 P3t0 P1t1 P2t1 P3t1 )
+ "
   (cffi:with-foreign-objects ((in 'tri-c:triangulateio)
 			      (out 'tri-c:triangulateio)
 			      (vor 'tri-c:triangulateio)
