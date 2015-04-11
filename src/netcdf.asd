@@ -1,3 +1,4 @@
+;; -*- coding: utf-8; -*-
 (defpackage :netcdf-asdf
   (:use :asdf))
 
@@ -5,7 +6,7 @@
 
 (defsystem "netcdf"
   :description ""
-  :author       "Valvassori Moïse <moise@valvassori.org>"
+  :author       "Valvassori MoÃ¯se <moise@valvassori.org>"
   :licence "None"
   :depends-on (:cffi)
   :components (
