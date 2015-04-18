@@ -1,18 +1,7 @@
-# cl-netcdf / cl-triangle
 
-FFI for netcdf and libtriangle; Partial (write) Netcdf objectivisation. 
+(ql:quickload :netcdf)
+(ql:quickload :metatilities)
 
-
-
-# Packages
-
-- netcdf-cffi, nc-c : Full CFFI for netcdf
-- triangle-cffi, tri-c : Full CFFI for libtriangle (http://www.cs.cmu.edu/~quake/triangle.html)
-- netcdf, nc : Dump data to a netcdf file.
-
-# Usage
-
-```common-lisp
 (defun save-scatter-points (&key (path "/tmp") (file-name "dumps") (axes 2) (points '()) (data '()))
   (let ((cdf (nc:create (format nil "~a/~a.nc" path file-name)))
 	(ar (make-array (* axes (length points))
@@ -68,4 +57,3 @@ FFI for netcdf and libtriangle; Partial (write) Netcdf objectivisation.
 	   :data '(("a" (0 (1.0 2.0 3.0 4.0)) (1 (2.0 4.0 5.0 6.0)))
 		   ("b" (0 (2.0 3.0 4.0 5.0)) (1 (4.0 5.0 6.0 2.0)))
 		   )))
-```
